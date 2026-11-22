@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAEDALUS · Portail Éducatif, Métiers, Sécurité & Réglementation du Drone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050814;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+
+        /* Ligne de progression lumineuse verticale style GitHub */
+        .timeline-glow {
+            background: linear-gradient(180deg, #38BDF8 0%, #818CF8 35%, #FBBF24 70%, #34D399 100%);
+            box-shadow: 0 0 18px rgba(56, 189, 248, 0.55);
+        }
+
+        /* Carte verre dépoli sombre */
+        .glass-card {
+            background: rgba(11, 18, 36, 0.78);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.45);
+            box-shadow: 0 20px 45px -15px rgba(14, 165, 233, 0.22);
+        }
+
+        /* Tuile de navigation rapide sur la page d'accueil */
+        .nav-tile {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(56, 189, 248, 0.18);
+            transition: all 0.22s ease;
+        }
+        .nav-tile:hover {
+            transform: translateY(-3px);
+            background: rgba(14, 165, 233, 0.14);
+            border-color: rgba(56, 189, 248, 0.65);
+            box-shadow: 0 12px 30px -10px rgba(56, 189, 248, 0.35);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-sky-500 selection:text-slate-950">
+
+    <!-- ARRIÈRE-PLAN STATIQUE LIÉ DIRECTEMENT AU LOGO DAEDALUS (SANS ANIMATION NI SOLEIL ORANGE) -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#040711]">
+        <!-- Dégradé atmosphérique bleu nuit / cyan profond -->
+        <div class="absolute inset-0" style="background: radial-gradient(circle at 50% 18%, rgba(14, 165, 233, 0.18) 0%, rgba(15, 23, 42, 0.65) 48%, #040711 88%);"></div>
+
+        <!-- Grille télémétrique fixe très discrète -->
+        <div class="absolute inset-0 opacity-[0.07]" style="background-image: linear-gradient(to right, #38BDF8 1px, transparent 1px), linear-gradient(to bottom, #38BDF8 1px, transparent 1px); background-size: 72px 72px;"></div>
+
+        <!-- Emblème vectoriel géant DAEDALUS (Ailes de Dédale + Horizon + Châssis Drone) en filigrane fixe -->
+        <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMin slice" class="w-full h-full opacity-35">
+            <defs>
+                <linearGradient id="wingBlueGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.05"/>
+                    <stop offset="50%" stop-color="#38BDF8" stop-opacity="0.55"/>
+                    <stop offset="100%" stop-color="#0284C7" stop-opacity="0.1"/>
+                </linearGradient>
+                <linearGradient id="wingGoldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#FBBF24" stop-opacity="0.05"/>
+                    <stop offset="50%" stop-color="#FBBF24" stop-opacity="0.45"/>
+                    <stop offset="100%" stop-color="#D97706" stop-opacity="0.08"/>
+                </linearGradient>
+                <radialGradient id="coreHalo" cx="50%" cy="32%" r="45%">
+                    <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.22"/>
+                    <stop offset="60%" stop-color="#1E3A8A" stop-opacity="0.08"/>
+                    <stop offset="100%" stop-color="#040711" stop-opacity="0"/>
+                </radialGradient>
+            </defs>
+
+            <!-- Halo central bleu cyan -->
+            <circle cx="800" cy="290" r="460" fill="url(#coreHalo)"/>
+
+            <!-- Cercles radar télémétriques fixes -->
+            <circle cx="800" cy="290" r="220" fill="none" stroke="#38BDF8" stroke-width="1" stroke-opacity="0.18"/>
+            <circle cx="800" cy="290" r="340" fill="none" stroke="#38BDF8" stroke-width="1" stroke-dasharray="6 10" stroke-opacity="0.14"/>
+            <circle cx="800" cy="290" r="470" fill="none" stroke="#38BDF8" stroke-width="1" stroke-opacity="0.10"/>
+
+            <!-- Courbe d'horizon bleu/or inspirée du logo DAEDALUS -->
+            <path d="M 180 485 Q 800 390 1420 485" fill="none" stroke="url(#wingBlueGrad)" stroke-width="2.5"/>
+            <path d="M 340 505 Q 800 435 1260 505" fill="none" stroke="url(#wingGoldGrad)" stroke-width="1.8"/>
+
+            <!-- Grande Aile Gauche stylisée de Dédale -->
+            <g stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <path d="M 710 315 C 630 305, 595 205, 540 175 C 430 145, 310 110, 195 50 C 225 115, 325 155, 505 195" stroke="url(#wingBlueGrad)" stroke-width="4"/>
+                <path d="M 635 320 C 590 275, 565 220, 510 208 C 415 188, 335 162, 265 135 C 310 182, 390 208, 498 228" stroke="url(#wingGoldGrad)" stroke-width="3.2"/>
+                <path d="M 585 272 C 490 258, 405 236, 335 212 C 378 256, 455 276, 590 292" stroke="url(#wingBlueGrad)" stroke-width="3"/>
+                <path d="M 610 314 C 535 308, 475 294, 425 278 C 462 318, 525 332, 620 332" stroke="url(#wingBlueGrad)" stroke-width="2.5"/>
+            </g>
+
+            <!-- Grande Aile Droite stylisée de Dédale -->
+            <g stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <path d="M 890 315 C 970 305, 1005 205, 1060 175 C 1170 145, 1290 110, 1405 50 C 1375 115, 1275 155, 1095 195" stroke="url(#wingBlueGrad)" stroke-width="4"/>
+                <path d="M 965 320 C 1010 275, 1035 220, 1090 208 C 1185 188, 1265 162, 1335 135 C 1290 182, 1210 208, 1102 228" stroke="url(#wingGoldGrad)" stroke-width="3.2"/>
+                <path d="M 1015 272 C 1110 258, 1195 236, 1265 212 C 1222 256, 1145 276, 1010 292" stroke="url(#wingBlueGrad)" stroke-width="3"/>
+                <path d="M 990 314 C 1065 308, 1125 294, 1175 278 C 1138 318, 1075 332, 980 332" stroke="url(#wingBlueGrad)" stroke-width="2.5"/>
+            </g>
+
+            <!-- Silhouette géométrique du drone central DAEDALUS en filigrane -->
+            <g stroke="#38BDF8" stroke-opacity="0.32" fill="none" stroke-width="2.5" stroke-linecap="round">
+                <line x1="775" y1="265" x2="685" y2="205"/>
+                <line x1="825" y1="265" x2="915" y2="205"/>
+                <line x1="775" y1="315" x2="688" y2="378"/>
+                <line x1="825" y1="315" x2="912" y2="378"/>
+                <!-- Corps central hexagonal -->
+                <polygon points="800,242 828,262 822,322 800,375 778,322 772,262" fill="#071226" fill-opacity="0.55"/>
+                <!-- Anneaux rotors -->
+                <circle cx="685" cy="205" r="44" stroke="#FBBF24" stroke-opacity="0.28"/>
+                <circle cx="915" cy="205" r="44" stroke="#FBBF24" stroke-opacity="0.28"/>
+                <circle cx="688" cy="378" r="44" stroke="#FBBF24" stroke-opacity="0.28"/>
+                <circle cx="912" cy="378" r="44" stroke="#FBBF24" stroke-opacity="0.28"/>
+            </g>
+        </svg>
+    </div>
+
+    <!-- BARRE DE NAVIGATION SUPÉRIEURE -->
+    <header class="sticky top-0 z-40 bg-[#050814]/85 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
+            <!-- Logo officiel DAEDALUS (vectoriel HD fidèle à l'emblème) -->
+            <a href="#accueil" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-white p-1 shadow-lg shadow-sky-500/20 border border-sky-400/40 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
+                    <svg viewBox="120 170 760 540" class="w-full h-full" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-label="Logo officiel DAEDALUS">
+                        <!-- Rayons du soleil -->
+                        <g stroke="#52525B" stroke-width="10">
+                            <line x1="500" y1="265" x2="500" y2="195"/>
+                            <line x1="448" y1="278" x2="428" y2="235"/>
+                            <line x1="552" y1="278" x2="572" y2="235"/>
+                            <line x1="398" y1="312" x2="345" y2="255"/>
+                            <line x1="602" y1="312" x2="655" y2="255"/>
+                            <line x1="370" y1="358" x2="328" y2="338"/>
+                            <line x1="630" y1="358" x2="672" y2="338"/>
+                        </g>
+                        <!-- Arc solaire -->
+                        <path d="M 378 415 A 124 124 0 0 1 622 415" stroke="#52525B" stroke-width="11"/>
+                        <!-- Horizon & reflets -->
+                        <path d="M 245 665 Q 500 622 755 665" stroke="#52525B" stroke-width="10"/>
+                        <ellipse cx="500" cy="656" rx="44" ry="4" fill="#52525B"/>
+                        <ellipse cx="500" cy="672" rx="26" ry="3.2" fill="#52525B"/>
+                        <ellipse cx="500" cy="686" rx="13" ry="2.4" fill="#52525B"/>
+                        <!-- Drone central -->
+                        <g stroke="#0D1321" stroke-width="11">
+                            <line x1="484" y1="472" x2="416" y2="422"/>
+                            <line x1="516" y1="472" x2="584" y2="422"/>
+                            <line x1="484" y1="508" x2="418" y2="562"/>
+                            <line x1="516" y1="508" x2="582" y2="562"/>
+                            <polygon points="500,456 520,470 516,514 500,558 484,514 480,470" fill="#FFFFFF"/>
+                            <polyline points="482,488 500,496 518,488"/>
+                            <line x1="500" y1="496" x2="500" y2="556"/>
+                        </g>
+                        <!-- Rotors & hélices -->
+                        <g>
+                            <circle cx="416" cy="422" r="12" fill="#0D1321"/>
+                            <circle cx="584" cy="422" r="12" fill="#0D1321"/>
+                            <circle cx="418" cy="562" r="12" fill="#0D1321"/>
+                            <circle cx="582" cy="562" r="12" fill="#0D1321"/>
+                            <circle cx="416" cy="422" r="34" stroke="#52525B" stroke-width="9" stroke-dasharray="155 60"/>
+                            <circle cx="584" cy="422" r="34" stroke="#52525B" stroke-width="9" stroke-dasharray="155 60"/>
+                            <circle cx="418" cy="562" r="34" stroke="#52525B" stroke-width="9" stroke-dasharray="155 60"/>
+                            <circle cx="582" cy="562" r="34" stroke="#52525B" stroke-width="9" stroke-dasharray="155 60"/>
+                        </g>
+                        <!-- Aile droite -->
+                        <g stroke-width="11">
+                            <path d="M 558 514 C 605 510, 622 435, 650 412 C 715 392, 785 368, 845 322 C 830 368, 775 394, 672 422" stroke="#0D1321"/>
+                            <path d="M 608 516 C 632 485, 646 444, 676 436 C 732 422, 778 405, 814 386 C 790 418, 745 436, 682 450" stroke="#52525B"/>
+                            <path d="M 638 482 C 695 472, 745 458, 782 442 C 758 472, 712 486, 634 496" stroke="#0D1321"/>
+                            <path d="M 622 512 C 665 508, 702 498, 730 488 C 708 514, 672 524, 616 524" stroke="#0D1321"/>
+                        </g>
+                        <!-- Aile gauche (symétrique) -->
+                        <g transform="translate(1000,0) scale(-1,1)" stroke-width="11">
+                            <path d="M 558 514 C 605 510, 622 435, 650 412 C 715 392, 785 368, 845 322 C 830 368, 775 394, 672 422" stroke="#0D1321"/>
+                            <path d="M 608 516 C 632 485, 646 444, 676 436 C 732 422, 778 405, 814 386 C 790 418, 745 436, 682 450" stroke="#52525B"/>
+                            <path d="M 638 482 C 695 472, 745 458, 782 442 C 758 472, 712 486, 634 496" stroke="#0D1321"/>
+                            <path d="M 622 512 C 665 508, 702 498, 730 488 C 708 514, 672 524, 616 524" stroke="#0D1321"/>
+                        </g>
+                    </svg>
+                </div>
+                <span class="font-extrabold tracking-widest text-base sm:text-lg text-white">DAEDALUS</span>
+            </a>
+
+            <!-- Liens de navigation rapides Desktop -->
+            <nav class="hidden xl:flex items-center gap-5 text-xs font-semibold text-slate-300">
+                <a href="#metiers" class="hover:text-sky-400 transition-colors">Métiers &amp; Actus</a>
+                <a href="#risques" class="hover:text-sky-400 transition-colors">Risques &amp; Sécurité</a>
+                <a href="#reglementation" class="hover:text-sky-400 transition-colors">Réglementation</a>
+                <a href="#materiel" class="hover:text-sky-400 transition-colors">Matériel</a>
+                <a href="#feelfpv" class="hover:text-sky-400 transition-colors">FeelFPV</a>
+                <a href="#poles" class="hover:text-sky-400 transition-colors">4 Pôles</a>
+                <a href="#genese" class="hover:text-sky-400 transition-colors">L'Association</a>
+                <a href="#projets" class="hover:text-sky-400 transition-colors">Projets &amp; Galerie</a>
+            </nav>
+
+            <!-- Bouton Contact & Menu Mobile -->
+            <div class="flex items-center gap-2.5">
+                <button id="openQuickDrawerBtn" type="button" class="text-xs sm:text-sm font-semibold bg-white/10 hover:bg-white/15 text-sky-300 border border-sky-400/30 px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer" title="Ouvrir le sommaire rapide des rubriques">
+                    <span>🧭</span>
+                    <span class="hidden sm:inline">Rubriques</span>
+                </button>
+                <a href="#contact" class="text-xs sm:text-sm font-bold bg-sky-500 hover:bg-sky-400 text-slate-950 px-4 py-2 rounded-xl shadow-lg shadow-sky-500/20 transition-all">
+                    Nous contacter
+                </a>
+                <button id="mobileMenuBtn" type="button" class="xl:hidden p-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10" aria-label="Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile déroulant -->
+        <div id="mobileMenu" class="hidden xl:hidden bg-[#080D21] border-b border-white/10 px-6 py-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm text-slate-200">
+            <a href="#metiers" class="py-1.5 hover:text-sky-400 font-medium">💼 Métiers du Drone &amp; Actus</a>
+            <a href="#risques" class="py-1.5 hover:text-sky-400 font-medium">⚠️ Risques &amp; Sécurité des vols</a>
+            <a href="#reglementation" class="py-1.5 hover:text-sky-400 font-medium">⚖️ Réglementation DGAC / EASA</a>
+            <a href="#materiel" class="py-1.5 hover:text-sky-400 font-medium">🛸 Matériel &amp; Flotte FPV</a>
+            <a href="#feelfpv" class="py-1.5 hover:text-sky-400 font-medium">🎮 Simulation sur FeelFPV</a>
+            <a href="#poles" class="py-1.5 hover:text-sky-400 font-medium">🎓 Nos 4 Pôles Éducatifs</a>
+            <a href="#genese" class="py-1.5 hover:text-sky-400 font-medium">🌱 Genèse &amp; Statuts Loi 1901</a>
+            <a href="#projets" class="py-1.5 hover:text-sky-400 font-medium">📸 Projets Élèves &amp; Galerie</a>
+        </div>
+
+        <!-- Barre de progression de lecture lumineuse -->
+        <div class="w-full h-[2px] bg-white/5">
+            <div id="scrollProgressBar" class="h-full w-0 bg-gradient-to-r from-sky-400 via-cyan-300 to-amber-300 transition-[width] duration-75"></div>
+        </div>
+    </header>
+
+    <!-- TIROIR FLOTTANT D'ACCÈS RAPIDE À TOUTES LES RUBRIQUES (ACCESSIBLE PARTOUT) -->
+    <div id="quickNavModal" class="hidden fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="w-full max-w-2xl bg-[#0B1224] border border-sky-400/30 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-5">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <div>
+                    <span class="text-[11px] font-bold uppercase tracking-widest text-sky-400">Navigation Instantanée</span>
+                    <h3 class="text-lg sm:text-xl font-extrabold text-white">Aller directement à une rubrique</h3>
+                </div>
+                <button id="closeQuickDrawerBtn" type="button" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center cursor-pointer" aria-label="Fermer">✕</button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                <a href="#accueil" class="quick-nav-link p-3 rounded-xl bg-white/5 hover:bg-sky-500/20 border border-white/10 hover:border-sky-400/50 flex items-center gap-3 text-white font-semibold transition-all">
+                    <span>🏠</span><span>Accueil &amp; Animation DAEDALUS</span>
+                </a>
+                <a href="#metiers" class="quick-nav-link p-3 rounded-xl bg-white/5 hover:bg-sky-500/20 border border-white/10 hover:border-sky-400/50 flex items-center gap-3 text-white font-semibold transition-all">
+                    <span>💼</span><span>01 · Métiers &amp; Actualités</span>
+                </a>
+                <a href="#risques" class="quick-nav-link p-3 rounded-xl bg-white/5 hover:bg-rose-500/20 border border-white/10 hover:border-rose-400/50 flex items-center gap-3 text-white font-semibold transition-all">
+                    <span>⚠️</span><span>02 · Risques &amp; Sécurité des vols</span>
+                </a>
+                <a href="#reglementation" class="quick-nav-link p-3 rounded-xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-400/50 flex items-center gap-3 text-white font-semibold transition-all">
+                    <span>⚖️</span><span>03 · Réglementation EASA / DGAC</span>
+                </a>
+                <a href="#materiel" class="quick-nav-link p-3 rounded-xl bg-white/5 hover:bg-indigo-500/20 border border-white/10 hover:border-indigo-400/50 flex items-center gap-3 text-white font-semibold transition-all">
+                    <span>🛸</span><span>04 · Matériel &amp; Technologies</span>
+                </a>
+                <a href="#feelfpv" class="quick-nav-link p-3 rounded-xl bg-white/5 hover:bg-cyan-500/20 border border-white/10 hover:border-cyan-400/50 flex items-center gap-3 text-white font-semibold transition-all">
+                    <span>🎮</span><span>05 · Simulation sur FeelFPV</span>
+                </a>
+                <a href="#poles" class="quick-nav-link p-3 rounded-xl bg-white/5 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-400/50 flex items-center gap-3 text-white font-semibold transition-all">
+                    <span>🎓</span><span>06 · Nos 4 Pôles Éducatifs</span>
+                </a>
+                <a href="#genese" class="quick-nav-link p-3 rounded-xl bg-white/5 hover:bg-purple-500/20 border border-white/10 hover:border-purple-400/50 flex items-center gap-3 text-white font-semibold transition-all">
+                    <span>🌱</span><span>07 · Genèse &amp; Statuts Loi 1901</span>
+                </a>
+                <a href="#projets" class="quick-nav-link p-3 rounded-xl bg-white/5 hover:bg-teal-500/20 border border-white/10 hover:border-teal-400/50 flex items-center gap-3 text-white font-semibold transition-all">
+                    <span>📸</span><span>08 · Projets Élèves &amp; Galerie</span>
+                </a>
+                <a href="#contact" class="quick-nav-link p-3 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/40 flex items-center gap-3 text-sky-300 font-bold transition-all">
+                    <span>✉️</span><span>09 · Contact &amp; Interventions</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENEUR PRINCIPAL -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-8">
+
+        <!-- SECTION HÉROS + BOUTONS DE NAVIGATION DIRECTE VERS TOUTES LES SOUS-PARTIES -->
+        <section id="accueil" class="pt-12 pb-20 sm:pt-20 sm:pb-24">
+            <div class="max-w-4xl mx-auto text-center space-y-6">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-500/10 border border-sky-400/30 text-xs font-semibold text-sky-300">
+                    <span>Association Éducative Loi 1901 · Aéronautique, Drones &amp; Sciences</span>
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white leading-[1.08]">
+                    Tout comprendre sur l'univers du <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-cyan-300 to-amber-300">Drone &amp; de l'Aéronautique</span>
+                </h1>
+
+                <p class="text-base sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                    <strong class="text-sky-400">D</strong>éveloppement d'<strong class="text-sky-400">A</strong>ctivités <strong class="text-sky-400">É</strong>ducatives sur les <strong class="text-sky-400">D</strong>rones, l'<strong class="text-sky-400">A</strong>éronautique, le <strong class="text-sky-400">L</strong>oisir et l'<strong class="text-sky-400">U</strong>sage <strong class="text-sky-400">S</strong>cientifique.
+                </p>
+
+                <!-- LECTEUR COMPACT DE L'ANIMATION DRONE DAEDALUS INTÉGRÉ À LA PAGE -->
+                <div class="max-w-lg mx-auto pt-2">
+                    <div class="relative rounded-2xl overflow-hidden border border-sky-400/35 bg-[#050A18]/95 shadow-[0_0_35px_rgba(14,165,233,0.25)]">
+                        <div class="aspect-square max-h-[380px] mx-auto w-full">
+                            <canvas id="miniDroneCanvas" class="w-full h-full block"></canvas>
+                        </div>
+                        <div class="flex items-center justify-between px-4 py-2.5 bg-[#040711]/95 border-t border-white/10 text-xs">
+                            <span id="miniStepLabel" class="flex items-center gap-2 text-slate-300 font-medium">
+                                <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+                                <span>1/7 · Initialisation radar &amp; horizon</span>
+                            </span>
+                            <button id="btnMiniReplay" type="button" class="text-sky-300 hover:text-white font-semibold flex items-center gap-1.5 cursor-pointer transition-colors">
+                                <span>↻ Rejouer (avec son)</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HUB DE NAVIGATION DIRECTE SUR LA PAGE PRINCIPALE (8 BOUTONS / CARTES D'ACCÈS RAPIDE) -->
+            <div id="menu-principal" class="mt-12 scroll-mt-24">
+                <div class="flex items-center justify-between mb-4 px-1">
+                    <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Navigation directe · Explorer les rubriques du portail</span>
+                    <span class="hidden sm:inline text-xs text-sky-400">Cliquez sur une rubrique pour y accéder directement ↓</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+                    <!-- Bouton 1 : Métiers & Actualités -->
+                    <a href="#metiers" class="nav-tile rounded-2xl p-4 flex items-start gap-3.5 group">
+                        <div class="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-400/30 text-sky-300 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">💼</div>
+                        <div>
+                            <div class="font-bold text-sm text-white group-hover:text-sky-300 transition-colors">Métiers &amp; Actualités</div>
+                            <p class="text-xs text-slate-400 mt-0.5">Filières pro, débouchés et articles récents</p>
+                        </div>
+                    </a>
+
+                    <!-- Bouton 2 : Risques & Sécurité -->
+                    <a href="#risques" class="nav-tile rounded-2xl p-4 flex items-start gap-3.5 group">
+                        <div class="w-10 h-10 rounded-xl bg-rose-500/20 border border-rose-400/30 text-rose-300 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">⚠️</div>
+                        <div>
+                            <div class="font-bold text-sm text-white group-hover:text-rose-300 transition-colors">Risques &amp; Sécurité</div>
+                            <p class="text-xs text-slate-400 mt-0.5">Batteries LiPo, facteurs humains &amp; prévention</p>
+                        </div>
+                    </a>
+
+                    <!-- Bouton 3 : Réglementation -->
+                    <a href="#reglementation" class="nav-tile rounded-2xl p-4 flex items-start gap-3.5 group">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/30 text-amber-300 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">⚖️</div>
+                        <div>
+                            <div class="font-bold text-sm text-white group-hover:text-amber-300 transition-colors">Réglementation Drone</div>
+                            <p class="text-xs text-slate-400 mt-0.5">Règles EASA/DGAC, AlphaTango &amp; Géoportail</p>
+                        </div>
+                    </a>
+
+                    <!-- Bouton 4 : Matériel Utilisé -->
+                    <a href="#materiel" class="nav-tile rounded-2xl p-4 flex items-start gap-3.5 group">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">🛸</div>
+                        <div>
+                            <div class="font-bold text-sm text-white group-hover:text-indigo-300 transition-colors">Matériel &amp; Technologies</div>
+                            <p class="text-xs text-slate-400 mt-0.5">Meteor75 Pro, ELRS, capteurs &amp; FabLab</p>
+                        </div>
+                    </a>
+
+                    <!-- Bouton 5 : Simulation FeelFPV -->
+                    <a href="#feelfpv" class="nav-tile rounded-2xl p-4 flex items-start gap-3.5 group">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">🎮</div>
+                        <div>
+                            <div class="font-bold text-sm text-white group-hover:text-cyan-300 transition-colors">Simulation FeelFPV</div>
+                            <p class="text-xs text-slate-400 mt-0.5">Apprentissage sans casse en mode Stabilisé &amp; Acro</p>
+                        </div>
+                    </a>
+
+                    <!-- Bouton 6 : Nos 4 Pôles Éducatifs -->
+                    <a href="#poles" class="nav-tile rounded-2xl p-4 flex items-start gap-3.5 group">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">🎓</div>
+                        <div>
+                            <div class="font-bold text-sm text-white group-hover:text-emerald-300 transition-colors">Nos 4 Pôles &amp; BIA</div>
+                            <p class="text-xs text-slate-400 mt-0.5">Éducation STEM, FPV, Sciences &amp; Loisir</p>
+                        </div>
+                    </a>
+
+                    <!-- Bouton 7 : Genèse & Statuts -->
+                    <a href="#genese" class="nav-tile rounded-2xl p-4 flex items-start gap-3.5 group">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/20 border border-purple-400/30 text-purple-300 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">🌱</div>
+                        <div>
+                            <div class="font-bold text-sm text-white group-hover:text-purple-300 transition-colors">Genèse &amp; Statuts</div>
+                            <p class="text-xs text-slate-400 mt-0.5">Histoire de DAEDALUS, gouvernance &amp; assurance</p>
+                        </div>
+                    </a>
+
+                    <!-- Bouton 8 : Projets Élèves & Galerie -->
+                    <a href="#projets" class="nav-tile rounded-2xl p-4 flex items-start gap-3.5 group">
+                        <div class="w-10 h-10 rounded-xl bg-teal-500/20 border border-teal-400/30 text-teal-300 flex items-center justify-center text-lg shrink-0 group-hover:scale-110 transition-transform">📸</div>
+                        <div>
+                            <div class="font-bold text-sm text-white group-hover:text-teal-300 transition-colors">Projets &amp; Galerie</div>
+                            <p class="text-xs text-slate-400 mt-0.5">Réalisations scolaires, capteurs &amp; challenges</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1 : LES MÉTIERS DU DRONE & ARTICLES RÉCENTS -->
+        <section id="metiers" class="relative pl-6 sm:pl-14 pb-24">
+            <div class="hidden sm:block absolute left-3 top-0 bottom-0 w-0.5 timeline-glow"></div>
+            <div class="hidden sm:flex absolute left-0 top-2 w-6 h-6 rounded-full bg-[#050814] border-2 border-sky-400 items-center justify-center shadow-[0_0_20px_#38BDF8]">
+                <span class="w-2 h-2 rounded-full bg-sky-300"></span>
+            </div>
+
+            <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-sky-400">01 · Filières &amp; Actualités</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">Les Métiers du Drone &amp; Articles Récents</h2>
+                </div>
+                <a href="#accueil" class="text-xs font-semibold text-slate-400 hover:text-sky-300">↑ Retour au menu</a>
+            </div>
+
+            <!-- Grille des 6 grands secteurs professionnels du drone -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+                <div class="glass-card rounded-2xl p-5">
+                    <div class="text-sky-400 font-bold text-sm mb-1.5">🏗️ Inspection Technique &amp; BTP</div>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Inspection d'ouvrages d'art (ponts, viaducs, éoliennes, toitures), thermographie infrarouge des bâtiments et modélisation 3D par photogrammétrie sans échafaudage.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5">
+                    <div class="text-emerald-400 font-bold text-sm mb-1.5">🌾 Agriculture &amp; Environnement</div>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Analyse multispectrale de la santé des cultures (indice NDVI), cartographie forestière, suivi de la biodiversité et gestion raisonnée de l'irrigation.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5">
+                    <div class="text-rose-400 font-bold text-sm mb-1.5">🚒 Sécurité Civile &amp; Secours</div>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Recherche de personnes disparues par caméra thermique, reconnaissance sur feux de forêt, évaluation après inondation et appui aux équipes de secours.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5">
+                    <div class="text-amber-400 font-bold text-sm mb-1.5">🎬 Audiovisuel, Cinéma &amp; FPV</div>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Prises de vues aériennes stabilisées pour le documentaire et le patrimoine, ainsi que plans séquences dynamiques en drone FPV pour le cinéma et le sport.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5">
+                    <div class="text-indigo-400 font-bold text-sm mb-1.5">🗺️ Topographie, Géomatique &amp; LiDAR</div>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Relevés centimétriques par GNSS RTK et capteurs laser LiDAR permettant de générer des jumeaux numériques de terrains, carrières et réseaux.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-5">
+                    <div class="text-cyan-400 font-bold text-sm mb-1.5">⚙️ Ingénierie, R&amp;D &amp; Maintenance</div>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Conception de châssis composites, programmation d'autopilotes (PX4 / ArduPilot), intelligence artificielle embarquée et maintenance aéronautique.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Dossier Articles Récents avec visuels -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                    <span>Articles &amp; Dossiers récents de la filière</span>
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Article 1 -->
+                    <article class="glass-card rounded-3xl overflow-hidden flex flex-col">
+                        <div class="relative h-44 overflow-hidden bg-slate-900">
+                            <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=800&q=80"
+                                 onerror="this.src='https://placehold.co/800x450/0B1736/38BDF8?text=Drones+LiDAR+%26+Inspection'"
+                                 alt="Drone professionnel d'inspection et de cartographie"
+                                 class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 left-3 bg-sky-500 text-slate-950 text-[11px] font-extrabold px-2.5 py-1 rounded-lg">
+                                Dossier Métier · 2026
+                            </span>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+                            <div>
+                                <h4 class="font-bold text-white text-base leading-snug">
+                                    Le télépilote-technicien : pourquoi la double compétence devient la norme
+                                </h4>
+                                <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+                                    Aujourd'hui, savoir piloter ne suffit plus : les entreprises recherchent des profils capables de traiter les nuages de points 3D, la thermographie ou les données SIG après le vol.
+                                </p>
+                            </div>
+                            <div class="text-[11px] text-sky-400 font-semibold pt-2 border-t border-white/10">
+                                Orientation scolaire · Bac Pro, BUT &amp; Écoles d'ingénieurs
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 2 -->
+                    <article class="glass-card rounded-3xl overflow-hidden flex flex-col">
+                        <div class="relative h-44 overflow-hidden bg-slate-900">
+                            <img src="https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=800&q=80"
+                                 onerror="this.src='https://placehold.co/800x450/0B1736/FBBF24?text=FPV+Cin%C3%A9ma+%26+Inspection'"
+                                 alt="Drone FPV haute précision en vol"
+                                 class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 left-3 bg-amber-400 text-slate-950 text-[11px] font-extrabold px-2.5 py-1 rounded-lg">
+                                Innovation · FPV
+                            </span>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+                            <div>
+                                <h4 class="font-bold text-white text-base leading-snug">
+                                    Des courses FPV à l'inspection industrielle en milieu confiné
+                                </h4>
+                                <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+                                    Grâce à leur agilité et leurs châssis carénés anti-chocs, les micro-drones FPV inspectent désormais l'intérieur des silos, canalisations et charpentes historiques sans risque humain.
+                                </p>
+                            </div>
+                            <div class="text-[11px] text-amber-300 font-semibold pt-2 border-t border-white/10">
+                                Passerelle directe avec nos ateliers Meteor75 Pro
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 3 -->
+                    <article class="glass-card rounded-3xl overflow-hidden flex flex-col">
+                        <div class="relative h-44 overflow-hidden bg-slate-900">
+                            <img src="https://images.unsplash.com/photo-1579829366248-204fe8413f31?auto=format&fit=crop&w=800&q=80"
+                                 onerror="this.src='https://placehold.co/800x450/0B1736/34D399?text=Sc%C3%A9narios+Europ%C3%A9ens+STS'"
+                                 alt="Préparation de mission drone et télémétrie"
+                                 class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 left-3 bg-emerald-400 text-slate-950 text-[11px] font-extrabold px-2.5 py-1 rounded-lg">
+                                Réglementation · 2026
+                            </span>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+                            <div>
+                                <h4 class="font-bold text-white text-base leading-snug">
+                                    Scénarios européens STS-01 &amp; STS-02 : le nouveau cadre des pros
+                                </h4>
+                                <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+                                    Depuis le 1er janvier 2026, les anciens scénarios nationaux français ont laissé place aux scénarios standards européens STS avec drones marqués classe C5 et C6.
+                                </p>
+                            </div>
+                            <div class="text-[11px] text-emerald-300 font-semibold pt-2 border-t border-white/10">
+                                Comprendre l'évolution de la filière aéronautique
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2 : RISQUES, PRÉVENTION & SÉCURITÉ DES VOLS -->
+        <section id="risques" class="relative pl-6 sm:pl-14 pb-24">
+            <div class="hidden sm:block absolute left-3 top-0 bottom-0 w-0.5 timeline-glow"></div>
+            <div class="hidden sm:flex absolute left-0 top-2 w-6 h-6 rounded-full bg-[#050814] border-2 border-rose-400 items-center justify-center shadow-[0_0_20px_#FB7185]">
+                <span class="w-2 h-2 rounded-full bg-rose-300"></span>
+            </div>
+
+            <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-rose-400">02 · Culture Sécurité &amp; Prévention</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">Analyse des Risques &amp; Sécurité des Vols</h2>
+                </div>
+                <a href="#accueil" class="text-xs font-semibold text-slate-400 hover:text-sky-300">↑ Retour au menu</a>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Risque 1 : Batteries LiPo & Matériel -->
+                <div class="glass-card rounded-3xl p-6 border-rose-500/20 space-y-3">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 border border-rose-400/30 text-xs font-bold text-rose-300">
+                        🔋 Risques Techniques &amp; Énergétiques
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Batteries LiPo, hélices &amp; pertes de liaison</h3>
+                    <ul class="text-xs sm:text-sm text-slate-300 space-y-2.5 leading-relaxed">
+                        <li>• <strong class="text-white">Sécurité LiPo :</strong> risque d'échauffement ou d'incendie en cas de choc, perforation ou surcharge. Utilisation systématique de sacs/coffres ignifugés et contrôle de la tension par cellule (3,8 V en stockage).</li>
+                        <li>• <strong class="text-white">Énergie cinétique des hélices :</strong> même sur un petit drone, des pales tournant à plus de 25 000 tr/min peuvent blesser les doigts ou les yeux → <em>carénages intégraux obligatoires en atelier</em>.</li>
+                        <li>• <strong class="text-white">Failsafe &amp; Perte radio :</strong> paramétrage du comportement automatique en cas de coupure du signal (coupure moteur immédiate en intérieur, retour au point de décollage RTH en extérieur).</li>
+                    </ul>
+                </div>
+
+                <!-- Risque 2 : Facteurs Humains -->
+                <div class="glass-card rounded-3xl p-6 border-amber-500/20 space-y-3">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-xs font-bold text-amber-300">
+                        🧠 Facteurs Humains &amp; Pilotage FPV
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Désorientation, effet tunnel &amp; coactivité</h3>
+                    <ul class="text-xs sm:text-sm text-slate-300 space-y-2.5 leading-relaxed">
+                        <li>• <strong class="text-white">Inversion des commandes à vue :</strong> lorsque le drone revient face au pilote, la gauche et la droite s'inversent mentalement.</li>
+                        <li>• <strong class="text-white">Effet tunnel en immersion (FPV) :</strong> le pilote portant un masque ne voit plus son environnement physique autour de lui → <em>présence obligatoire d'un observateur dédié</em> à ses côtés.</li>
+                        <li>• <strong class="text-white">Stress &amp; précipitation :</strong> mise en place d'une check-list avant chaque mise sous tension (hélices, batterie, zone dégagée, annonce vocale « Décollage ! »).</li>
+                    </ul>
+                </div>
+
+                <!-- Risque 3 : Environnement & Espace Aérien -->
+                <div class="glass-card rounded-3xl p-6 border-sky-500/20 space-y-3">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/15 border border-sky-400/30 text-xs font-bold text-sky-300">
+                        🌪️ Risques Environnementaux &amp; Aériens
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Météo, interférences &amp; partage du ciel</h3>
+                    <ul class="text-xs sm:text-sm text-slate-300 space-y-2.5 leading-relaxed">
+                        <li>• <strong class="text-white">Conditions aérologiques :</strong> rafales de vent, cisaillement près des bâtiments, pluie et froid (qui réduit brutalement la capacité des batteries).</li>
+                        <li>• <strong class="text-white">Perturbations magnétiques &amp; radio :</strong> structures métalliques, lignes haute tension ou saturation Wi-Fi/5,8 GHz en salle.</li>
+                        <li>• <strong class="text-white">Collision avec d'autres aéronefs :</strong> priorité absolue aux aéronefs habités (hélicoptères du SAMU, avions légers, ULM) qui évoluent parfois à basse altitude.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3 : RÉGLEMENTATION DRONE (DGAC / EASA) -->
+        <section id="reglementation" class="relative pl-6 sm:pl-14 pb-24">
+            <div class="hidden sm:block absolute left-3 top-0 bottom-0 w-0.5 timeline-glow"></div>
+            <div class="hidden sm:flex absolute left-0 top-2 w-6 h-6 rounded-full bg-[#050814] border-2 border-amber-400 items-center justify-center shadow-[0_0_20px_#FBBF24]">
+                <span class="w-2 h-2 rounded-full bg-amber-300"></span>
+            </div>
+
+            <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-amber-400">03 · Cadre Légal Français &amp; Européen</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">La Réglementation Drone (EASA &amp; DGAC)</h2>
+                </div>
+                <a href="#accueil" class="text-xs font-semibold text-slate-400 hover:text-sky-300">↑ Retour au menu</a>
+            </div>
+
+            <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+                <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                    Dès qu'un drone vole en extérieur, il est considéré comme un <strong class="text-white">aéronef sans équipage à bord (UAS)</strong> soumis au règlement européen <strong class="text-amber-300">(UE) 2019/947</strong> et au Code de l'aviation civile français. Voici les 4 piliers enseignés à tous nos membres :
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                        <div class="font-bold text-sky-300 text-sm mb-1.5">1. Catégorie Ouverte (C0 à C4)</div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Pour le loisir et l'initiation : hauteur maximale de <strong>120 mètres</strong>, vol à vue directe (VLOS) obligatoire (ou avec observateur en FPV), interdiction de survoler des rassemblements de personnes.
+                        </p>
+                    </div>
+
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                        <div class="font-bold text-amber-300 text-sm mb-1.5">2. AlphaTango &amp; Formation</div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Enregistrement obligatoire de l'exploitant sur le portail officiel <strong>AlphaTango</strong> dès que le drone possède une caméra, apposition du numéro <code class="text-white">FRA-...</code> sur le châssis, et examen théorique A1/A3 dès 250 g.
+                        </p>
+                    </div>
+
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                        <div class="font-bold text-emerald-300 text-sm mb-1.5">3. Carte Géoportail UAS</div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Interdiction de voler en espace public en agglomération, près des aérodromes, bases militaires, centrales ou parcs nationaux. Consultation impérative de la carte <strong>Géoportail Restrictions UAS</strong> avant tout vol extérieur.
+                        </p>
+                    </div>
+
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                        <div class="font-bold text-indigo-300 text-sm mb-1.5">4. Vol Intérieur &amp; Vie Privée</div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Dans un espace clos et couvert (gymnase, salle polyvalente), les règles d'espace aérien extérieur ne s'appliquent pas, mais l'autorisation du propriétaire et le <strong>respect strict du droit à l'image (RGPD)</strong> restent obligatoires.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4 : LE MATÉRIEL UTILISÉ & TECHNOLOGIE DU DRONE -->
+        <section id="materiel" class="relative pl-6 sm:pl-14 pb-24">
+            <div class="hidden sm:block absolute left-3 top-0 bottom-0 w-0.5 timeline-glow"></div>
+            <div class="hidden sm:flex absolute left-0 top-2 w-6 h-6 rounded-full bg-[#050814] border-2 border-indigo-400 items-center justify-center shadow-[0_0_20px_#818CF8]">
+                <span class="w-2 h-2 rounded-full bg-indigo-300"></span>
+            </div>
+
+            <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">04 · Anatomie &amp; Flotte Éducative</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">Le Matériel Utilisé &amp; Architecture d'un Drone</h2>
+                </div>
+                <a href="#accueil" class="text-xs font-semibold text-slate-400 hover:text-sky-300">↑ Retour au menu</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-card rounded-3xl p-6 flex gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-sky-500/20 border border-sky-400/30 text-sky-300 flex items-center justify-center text-2xl shrink-0">🛸</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Micro-drones carénés (TinyWhoop · Meteor75 Pro)</h3>
+                        <p class="text-sm text-slate-300 mt-1.5 leading-relaxed">
+                            Ultra-légers (moins de 35 g avec batterie 1S) et dotés de protections d'hélices intégrales : ils permettent de voler en toute sécurité dans une salle de classe ou un gymnase sans danger pour les élèves ni pour les murs.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-3xl p-6 flex gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/30 text-amber-300 flex items-center justify-center text-2xl shrink-0">🕹️</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Radiocommandes protocole ExpressLRS (ELRS 2,4 GHz)</h3>
+                        <p class="text-sm text-slate-300 mt-1.5 leading-relaxed">
+                            Liaison radio numérique open-source à très faible latence, configurable en double commande (écolage maître/élève) permettant à l'animateur de reprendre la main instantanément en cas d'urgence.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-3xl p-6 flex gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 flex items-center justify-center text-2xl shrink-0">🥽</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Masques FPV &amp; Retour vidéo collectif 5,8 GHz</h3>
+                        <p class="text-sm text-slate-300 mt-1.5 leading-relaxed">
+                            Casques d'immersion pour le pilote couplés à un récepteur vidéo sur grand écran ou vidéoprojecteur, afin que toute la classe puisse suivre le vol en direct, lire l'OSD (télémétrie) et analyser les trajectoires.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-3xl p-6 flex gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 flex items-center justify-center text-2xl shrink-0">🛠️</div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Atelier FabLab : Soudure, Betaflight &amp; Impression 3D</h3>
+                        <p class="text-sm text-slate-300 mt-1.5 leading-relaxed">
+                            Contrôleurs de vol (gyroscope/accéléromètre), moteurs brushless triphasés, ESC, stations de soudure basse tension, chargeurs sécurisés LiPo et imprimantes 3D pour concevoir châssis et supports de capteurs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5 : SIMULATION SUR FEELFPV -->
+        <section id="feelfpv" class="relative pl-6 sm:pl-14 pb-24">
+            <div class="hidden sm:block absolute left-3 top-0 bottom-0 w-0.5 timeline-glow"></div>
+            <div class="hidden sm:flex absolute left-0 top-2 w-6 h-6 rounded-full bg-[#050814] border-2 border-cyan-400 items-center justify-center shadow-[0_0_20px_#22D3EE]">
+                <span class="w-2 h-2 rounded-full bg-cyan-300"></span>
+            </div>
+
+            <div class="glass-card rounded-3xl p-6 sm:p-10 border-cyan-500/25">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-xs font-bold text-cyan-300">
+                        🎮 05 · Étape 1 avant le vol réel : Simulateur FeelFPV
+                    </span>
+                    <a href="#accueil" class="text-xs font-semibold text-slate-400 hover:text-sky-300">↑ Retour au menu</a>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-5">
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Apprendre à piloter sans risque sur FeelFPV</h2>
+                        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                            Le pilotage d'un drone en immersion (<strong class="text-white">FPV — First Person View</strong>) demande une coordination fine des pouces sur les manches (gaz, lacet, tangage, roulis). Avant de prendre les commandes d'un appareil réel, tous nos élèves s'entraînent sur le simulateur <strong class="text-cyan-300">FeelFPV</strong> relié à une véritable radiocommande.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2">
+                            <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                                <div class="text-sky-400 font-bold text-sm">1. Mode Stabilisé</div>
+                                <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">Gestion douce des gaz et maintien d'altitude en vol stationnaire.</p>
+                            </div>
+                            <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                                <div class="text-amber-400 font-bold text-sm">2. Mode Acro</div>
+                                <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">Compréhension de l'inertie, trajectoires fluides et passage de portes.</p>
+                            </div>
+                            <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                                <div class="text-emerald-400 font-bold text-sm">3. Zéro Casse</div>
+                                <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">Droit à l'erreur illimité et acquisition des réflexes de sécurité.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 bg-[#050814]/80 border border-sky-400/20 rounded-2xl p-6 space-y-4">
+                        <h3 class="text-base font-bold text-sky-300">Configuration pédagogique en atelier</h3>
+                        <ul class="text-xs sm:text-sm text-slate-300 space-y-3 leading-relaxed">
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-emerald-400 font-bold">✓</span>
+                                <span><strong class="text-white">Radiocommandes réelles en USB-C / Bluetooth</strong> (mode manette HID) pour retrouver les sensations exactes du terrain.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-emerald-400 font-bold">✓</span>
+                                <span><strong class="text-white">Paramétrage physique réaliste :</strong> masse, poussée des moteurs et courbes <em>Rates</em> calquées sur nos micro-drones Meteor75 Pro.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-emerald-400 font-bold">✓</span>
+                                <span><strong class="text-white">Parcours chronométrés :</strong> validation d'un brevet virtuel en gymnase avant le premier décollage réel.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6 : NOS 4 PÔLES ÉDUCATIFS -->
+        <section id="poles" class="relative pl-6 sm:pl-14 pb-24">
+            <div class="hidden sm:block absolute left-3 top-0 bottom-0 w-0.5 timeline-glow"></div>
+            <div class="hidden sm:flex absolute left-0 top-2 w-6 h-6 rounded-full bg-[#050814] border-2 border-emerald-400 items-center justify-center shadow-[0_0_20px_#34D399]">
+                <span class="w-2 h-2 rounded-full bg-emerald-300"></span>
+            </div>
+
+            <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-400">06 · Nos 4 Pôles d'Intervention</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">La pédagogie par le vol et l'expérimentation</h2>
+                </div>
+                <a href="#accueil" class="text-xs font-semibold text-slate-400 hover:text-sky-300">↑ Retour au menu</a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="glass-card rounded-3xl p-6">
+                    <div class="w-11 h-11 rounded-2xl bg-sky-500/20 border border-sky-400/30 text-sky-300 flex items-center justify-center text-xl mb-4">🎓</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Activités Éducatives</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Ateliers STEM en classe, initiation à l'aérodynamique, électronique, soudure, impression 3D et préparation au BIA (Brevet d'Initiation Aéronautique).
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-3xl p-6">
+                    <div class="w-11 h-11 rounded-2xl bg-amber-500/20 border border-amber-400/30 text-amber-300 flex items-center justify-center text-xl mb-4">🚁</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Drones &amp; FPV</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Apprentissage progressif sur simulateur FeelFPV, pilotage à vue et en immersion (FPV), sécurité des vols et sensibilisation à la réglementation européenne.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-3xl p-6">
+                    <div class="w-11 h-11 rounded-2xl bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 flex items-center justify-center text-xl mb-4">🔬</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Usage Scientifique</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Cartographie aérienne, photogrammétrie, relevés environnementaux, capteurs atmosphériques embarqués et analyse de données télémétriques.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-3xl p-6">
+                    <div class="w-11 h-11 rounded-2xl bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 flex items-center justify-center text-xl mb-4">✈️</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Aéronautique &amp; Loisir</h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Construction de modèles réduits, rencontres conviviales, démonstrations publiques et partage de la culture aéronautique pour tous.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7 : GENÈSE DE L'ASSOCIATION & STATUTS -->
+        <section id="genese" class="relative pl-6 sm:pl-14 pb-24">
+            <div class="hidden sm:block absolute left-3 top-0 bottom-0 w-0.5 timeline-glow"></div>
+            <div class="hidden sm:flex absolute left-0 top-2 w-6 h-6 rounded-full bg-[#050814] border-2 border-purple-400 items-center justify-center shadow-[0_0_20px_#C084FC]">
+                <span class="w-2 h-2 rounded-full bg-purple-300"></span>
+            </div>
+
+            <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-purple-400">07 · L'Association</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">Genèse du projet &amp; Cadre statutaire</h2>
+                </div>
+                <a href="#accueil" class="text-xs font-semibold text-slate-400 hover:text-sky-300">↑ Retour au menu</a>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 glass-card rounded-3xl p-6 sm:p-8 space-y-4">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-400/30 text-xs font-semibold text-purple-300">
+                        <span>🌱 Genèse de DAEDALUS</span>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white">Pourquoi avons-nous fondé DAEDALUS ?</h3>
+                    <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                        L'association <strong class="text-white">DAEDALUS</strong> est née d'un constat partagé par des enseignants, des formateurs et des passionnés d'aéronautique : le drone fascine les jeunes, mais reste souvent perçu uniquement comme un simple jouet. Pourtant, derrière chaque vol se cachent des <span class="text-sky-300 font-medium">mathématiques appliquées</span>, de la <span class="text-sky-300 font-medium">physique du vol</span>, de l'électronique embarquée, de l'informatique et une culture rigoureuse de la sécurité aérienne.
+                    </p>
+                    <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                        Pour démocratiser ces savoirs auprès des établissements scolaires, des accueils de loisirs et du grand public, nous avons créé <strong class="text-white">DAEDALUS</strong> afin d'offrir un parcours d'apprentissage progressif, sécurisé et accessible à tous.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-5 border-amber-400/25">
+                    <div class="space-y-4">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-xs font-semibold text-amber-300">
+                            <span>⚖️ Statut Loi 1901</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Association à but non lucratif</h3>
+                        <ul class="text-sm text-slate-300 space-y-3 leading-relaxed">
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-amber-400 font-bold">•</span>
+                                <span><strong class="text-white">Objet :</strong> Promotion des sciences aéronautiques, du pilotage éducatif (FPV &amp; à vue) et des usages scientifiques des drones.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-amber-400 font-bold">•</span>
+                                <span><strong class="text-white">Gouvernance :</strong> Bureau collégial (Présidence, Secrétariat, Trésorerie) et membres actifs encadrants.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-amber-400 font-bold">•</span>
+                                <span><strong class="text-white">Assurance :</strong> Responsabilité Civile Associative couvrant les ateliers scolaires et démonstrations.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#contact" class="w-full text-center text-xs font-semibold text-amber-300 hover:text-slate-950 bg-amber-400/10 hover:bg-amber-400 border border-amber-400/30 py-2.5 px-4 rounded-xl transition-all">
+                        Demander les statuts &amp; dossier pédagogique →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8 : PROJETS ÉLÈVES & GALERIE -->
+        <section id="projets" class="relative pl-6 sm:pl-14 pb-24">
+            <div class="hidden sm:block absolute left-3 top-0 bottom-0 w-0.5 timeline-glow"></div>
+            <div class="hidden sm:flex absolute left-0 top-2 w-6 h-6 rounded-full bg-[#050814] border-2 border-teal-400 items-center justify-center shadow-[0_0_20px_#2DD4BF]">
+                <span class="w-2 h-2 rounded-full bg-teal-300"></span>
+            </div>
+
+            <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-teal-400">08 · Projets Élèves &amp; Galerie</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1">Les réalisations de nos élèves &amp; membres</h2>
+                </div>
+                <a href="#accueil" class="text-xs font-semibold text-slate-400 hover:text-sky-300">↑ Retour au menu</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card rounded-3xl overflow-hidden flex flex-col">
+                    <div class="h-40 bg-gradient-to-tr from-sky-950 via-sky-800 to-cyan-600 flex flex-col items-center justify-center p-4 text-center">
+                        <span class="text-3xl mb-1.5">📐</span>
+                        <span class="text-xs font-semibold text-sky-100 uppercase tracking-wider">Conception &amp; FabLab</span>
+                    </div>
+                    <div class="p-6 flex-1">
+                        <span class="text-xs font-bold text-sky-400">Projet Collège / Lycée</span>
+                        <h3 class="text-lg font-bold text-white mt-1">Assemblage d'un Drone Éducatif</h3>
+                        <p class="text-sm text-slate-300 mt-2 leading-relaxed">
+                            Modélisation 3D du châssis, calcul du rapport poids/poussée, soudure des moteurs brushless et paramétrage des capteurs gyroscopiques.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-3xl overflow-hidden flex flex-col">
+                    <div class="h-40 bg-gradient-to-tr from-emerald-950 via-emerald-800 to-teal-600 flex flex-col items-center justify-center p-4 text-center">
+                        <span class="text-3xl mb-1.5">🌍</span>
+                        <span class="text-xs font-semibold text-emerald-100 uppercase tracking-wider">Sciences &amp; Environnement</span>
+                    </div>
+                    <div class="p-6 flex-1">
+                        <span class="text-xs font-bold text-emerald-400">Mission Scientifique</span>
+                        <h3 class="text-lg font-bold text-white mt-1">Relevés Atmosphériques Embarqués</h3>
+                        <p class="text-sm text-slate-300 mt-2 leading-relaxed">
+                            Embarquement d'un micro-capteur de température, pression et qualité de l'air pour établir un profil atmosphérique vertical.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-3xl overflow-hidden flex flex-col">
+                    <div class="h-40 bg-gradient-to-tr from-indigo-950 via-purple-900 to-indigo-600 flex flex-col items-center justify-center p-4 text-center">
+                        <span class="text-3xl mb-1.5">🏁</span>
+                        <span class="text-xs font-semibold text-indigo-100 uppercase tracking-wider">Challenge FPV Indoor</span>
+                    </div>
+                    <div class="p-6 flex-1">
+                        <span class="text-xs font-bold text-indigo-400">Tournoi Inter-Classes</span>
+                        <h3 class="text-lg font-bold text-white mt-1">Parcours d'Agilité &amp; Vol en Équipe</h3>
+                        <p class="text-sm text-slate-300 mt-2 leading-relaxed">
+                            Organisation d'un challenge en gymnase avec portes lumineuses LED, chronométrage et sensibilisation au rôle d'observateur aérien.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 9 : CONTACT & ADHÉSION -->
+        <section id="contact" class="relative pl-6 sm:pl-14 pb-20">
+            <div class="hidden sm:block absolute left-3 top-0 h-10 w-0.5 timeline-glow"></div>
+            <div class="hidden sm:flex absolute left-0 top-2 w-6 h-6 rounded-full bg-[#050814] border-2 border-sky-400 items-center justify-center shadow-[0_0_20px_#38BDF8]">
+                <span class="w-2 h-2 rounded-full bg-sky-300"></span>
+            </div>
+
+            <div class="glass-card rounded-3xl p-6 sm:p-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-bold uppercase tracking-widest text-sky-400">09 · Contact &amp; Interventions</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Organiser un atelier ou rejoindre DAEDALUS</h2>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Vous êtes enseignant, chef d'établissement, animateur jeunesse ou passionné d'aéronautique ? Écrivez-nous pour co-construire un projet pédagogique ou devenir membre.
+                        </p>
+                        <div class="pt-2 space-y-2 text-xs sm:text-sm text-slate-300">
+                            <p>📍 Interventions en milieu scolaire, périscolaire &amp; associatif</p>
+                            <p>✉️ <span class="text-sky-300 font-medium">contact@association-daedalus.fr</span></p>
+                        </div>
+                    </div>
+
+                    <form id="contactForm" class="lg:col-span-7 space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Nom / Établissement</label>
+                                <input type="text" required placeholder="Collège Jean Moulin / M. Dupont" class="w-full bg-[#050814]/80 border border-white/15 focus:border-sky-400 rounded-xl px-4 py-3 text-sm text-white outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Email de contact</label>
+                                <input type="email" required placeholder="prenom.nom@ac-toulouse.fr" class="w-full bg-[#050814]/80 border border-white/15 focus:border-sky-400 rounded-xl px-4 py-3 text-sm text-white outline-none transition-colors">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Objet de votre demande</label>
+                            <select class="w-full bg-[#050814]/80 border border-white/15 focus:border-sky-400 rounded-xl px-4 py-3 text-sm text-white outline-none transition-colors">
+                                <option>Demande d'atelier scolaire / BIA / STEM</option>
+                                <option>Initiation Simulateur FeelFPV &amp; Micro-drones</option>
+                                <option>Adhésion à l'association DAEDALUS</option>
+                                <option>Partenariat ou démonstration publique</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Votre message</label>
+                            <textarea rows="3" required placeholder="Précisez le niveau des élèves, les dates souhaitées ou vos questions..." class="w-full bg-[#050814]/80 border border-white/15 focus:border-sky-400 rounded-xl px-4 py-3 text-sm text-white outline-none transition-colors"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-lg shadow-sky-500/25 transition-all cursor-pointer">
+                            Envoyer le message →
+                        </button>
+
+                        <div id="formFeedback" class="hidden p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-400/30 text-xs sm:text-sm text-emerald-300">
+                            ✓ Merci ! Votre message a bien été pris en compte par l'équipe DAEDALUS.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIED DE PAGE -->
+    <footer class="relative z-10 border-t border-white/10 bg-[#03050D] py-8 px-4 sm:px-8 text-center text-xs text-slate-400">
+        <p class="font-semibold text-slate-200">Association DAEDALUS · Loi 1901</p>
+        <p class="mt-1">Développement d'Activités Éducatives sur les Drones, l'Aéronautique, le Loisir et l'Usage Scientifique.</p>
+    </footer>
+
+    <!-- BOUTONS FLOTTANTS PERMANENTS EN BAS À DROITE (RETOUR MENU PRINCIPAL + SOMMAIRE) -->
+    <div id="floatingNavControls" class="fixed bottom-5 right-5 z-40 flex items-center gap-2 opacity-0 translate-y-4 pointer-events-none transition-all duration-300">
+        <button id="floatingDrawerBtn" type="button" class="bg-[#0B1224]/95 hover:bg-slate-800 text-sky-300 border border-sky-400/40 backdrop-blur-md text-xs sm:text-sm font-semibold px-3.5 py-3 rounded-2xl shadow-xl flex items-center gap-2 cursor-pointer" title="Changer de rubrique">
+            <span>🧭</span>
+            <span class="hidden sm:inline">Rubriques</span>
+        </button>
+        <a href="#menu-principal" class="bg-sky-500 hover:bg-sky-400 active:scale-95 text-slate-950 font-extrabold text-xs sm:text-sm px-4 py-3 rounded-2xl shadow-[0_10px_30px_rgba(14,165,233,0.45)] flex items-center gap-2 transition-all" title="Revenir directement au menu principal">
+            <span>↑</span>
+            <span>Menu principal</span>
+        </a>
+    </div>
+
+    <script>
+        // Menu mobile
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Tiroir de navigation instantanée (accessible depuis le haut et depuis le bouton flottant)
+        const quickNavModal = document.getElementById('quickNavModal');
+        const openQuickDrawerBtn = document.getElementById('openQuickDrawerBtn');
+        const floatingDrawerBtn = document.getElementById('floatingDrawerBtn');
+        const closeQuickDrawerBtn = document.getElementById('closeQuickDrawerBtn');
+
+        function toggleQuickDrawer(show) {
+            if (show) quickNavModal.classList.remove('hidden');
+            else quickNavModal.classList.add('hidden');
+        }
+
+        openQuickDrawerBtn.addEventListener('click', () => toggleQuickDrawer(true));
+        floatingDrawerBtn.addEventListener('click', () => toggleQuickDrawer(true));
+        closeQuickDrawerBtn.addEventListener('click', () => toggleQuickDrawer(false));
+        quickNavModal.addEventListener('click', (e) => {
+            if (e.target === quickNavModal) toggleQuickDrawer(false);
+        });
+        quickNavModal.querySelectorAll('.quick-nav-link').forEach(link => {
+            link.addEventListener('click', () => toggleQuickDrawer(false));
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') toggleQuickDrawer(false);
+        });
+
+        // Bouton flottant "Retour Menu Principal", barre de progression & rubrique active
+        const floatingNavControls = document.getElementById('floatingNavControls');
+        const scrollProgressBar = document.getElementById('scrollProgressBar');
+        const navLinks = document.querySelectorAll('header nav a[href^="#"]');
+        const trackedSections = ['metiers', 'risques', 'reglementation', 'materiel', 'feelfpv', 'poles', 'genese', 'projets', 'contact']
+            .map(id => document.getElementById(id))
+            .filter(Boolean);
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+            scrollProgressBar.style.width = `${pct}%`;
+
+            // Affichage du bouton flottant "↑ Menu principal" dès qu'on descend sous l'accueil
+            if (scrollTop > 420) {
+                floatingNavControls.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+            } else {
+                floatingNavControls.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+            }
+
+            // Mise en surbrillance automatique de la rubrique active dans la barre du haut
+            let currentId = '';
+            trackedSections.forEach(sec => {
+                if (scrollTop >= sec.offsetTop - 180) {
+                    currentId = sec.id;
+                }
+            });
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === `#${currentId}`) {
+                    link.classList.add('text-sky-400');
+                } else {
+                    link.classList.remove('text-sky-400');
+                }
+            });
+        }, { passive: true });
+
+        // Formulaire de contact
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('formFeedback').classList.remove('hidden');
+            this.reset();
+        });
+
+        // Initialisation du lecteur de l'animation officielle DAEDALUS (7 étapes)
+        const miniCanvas = document.getElementById('miniDroneCanvas');
+        const mCtx = miniCanvas.getContext('2d');
+        const miniStepLabel = document.getElementById('miniStepLabel');
+        miniCanvas.width = 1000;
+        miniCanvas.height = 1000;
+
+        const MINI_TOTAL_DURATION = 9.8;
+        let miniStart = null;
+        let miniAnimId = null;
+
+        // Moteur acoustique réaliste du drone (Web Audio API)
+        class MiniDroneAcousticEngine {
+            constructor() {
+                this.ctx = null;
+                this.masterGain = null;
+                this.noiseBuffer = null;
+                this.activeNodes = [];
+            }
+
+            ensureContext() {
+                if (!this.ctx) {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    this.ctx = new AudioCtx();
+                    this.masterGain = this.ctx.createGain();
+                    this.masterGain.gain.value = 0.75;
+                    this.masterGain.connect(this.ctx.destination);
+
+                    const length = this.ctx.sampleRate * 3;
+                    this.noiseBuffer = this.ctx.createBuffer(1, length, this.ctx.sampleRate);
+                    const output = this.noiseBuffer.getChannelData(0);
+                    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+                    for (let i = 0; i < length; i++) {
+                        const white = Math.random() * 2 - 1;
+                        b0 = 0.99886 * b0 + white * 0.0555179;
+                        b1 = 0.99332 * b1 + white * 0.0750759;
+                        b2 = 0.96900 * b2 + white * 0.1538520;
+                        b3 = 0.86650 * b3 + white * 0.3104856;
+                        b4 = 0.55000 * b4 + white * 0.5329522;
+                        b5 = -0.7616 * b5 - white * 0.0168980;
+                        output[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.045;
+                        b6 = white * 0.115926;
+                    }
+                }
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume().catch(() => {});
+                }
+            }
+
+            stopAll() {
+                this.activeNodes.forEach(node => {
+                    try {
+                        if (typeof node.stop === 'function') node.stop();
+                        node.disconnect();
+                    } catch (e) {}
+                });
+                this.activeNodes = [];
+            }
+
+            scheduleSequence() {
+                try {
+                    this.ensureContext();
+                    this.stopAll();
+                    const now = this.ctx.currentTime + 0.03;
+
+                    // 1. Armement ESC BLHeli / Betaflight (1.05s)
+                    const connectTime = now + 1.05;
+                    const escNotes = [
+                        { offset: 0.00, freq: 1046.50, dur: 0.055, gain: 0.14 },
+                        { offset: 0.07, freq: 1318.51, dur: 0.055, gain: 0.15 },
+                        { offset: 0.14, freq: 1567.98, dur: 0.065, gain: 0.16 },
+                        { offset: 0.25, freq: 1174.66, dur: 0.095, gain: 0.15 },
+                        { offset: 0.36, freq: 2093.00, dur: 0.180, gain: 0.20 }
+                    ];
+
+                    escNotes.forEach(note => {
+                        const t0 = connectTime + note.offset;
+                        const osc = this.ctx.createOscillator();
+                        const filter = this.ctx.createBiquadFilter();
+                        const env = this.ctx.createGain();
+
+                        osc.type = 'square';
+                        osc.frequency.setValueAtTime(note.freq, t0);
+                        filter.type = 'bandpass';
+                        filter.frequency.setValueAtTime(note.freq * 1.15, t0);
+                        filter.Q.setValueAtTime(2.5, t0);
+
+                        env.gain.setValueAtTime(0.0001, t0);
+                        env.gain.linearRampToValueAtTime(note.gain, t0 + 0.005);
+                        env.gain.exponentialRampToValueAtTime(0.0001, t0 + note.dur);
+
+                        osc.connect(filter);
+                        filter.connect(env);
+                        env.connect(this.masterGain);
+
+                        osc.start(t0);
+                        osc.stop(t0 + note.dur + 0.01);
+                        this.activeNodes.push(osc, env);
+                    });
+
+                    // 2. Survol rapide (Flyby Doppler) synchronisé avec le faisceau (6.35s -> 7.75s)
+                    const scanStart = 6.35;
+                    const peakTime = 7.05;
+                    const scanEnd = 7.75;
+                    const totalDur = scanEnd - scanStart;
+                    const tStart = now + scanStart;
+                    const tEnd = now + scanEnd;
+
+                    const panner = typeof this.ctx.createStereoPanner === 'function'
+                        ? this.ctx.createStereoPanner()
+                        : this.ctx.createGain();
+
+                    const steps = 100;
+                    const airFreqCurve = new Float32Array(steps);
+                    const airGainCurve = new Float32Array(steps);
+                    const rotorFilterCurve = new Float32Array(steps);
+                    const rotorGainCurve = new Float32Array(steps);
+                    const panCurve = new Float32Array(steps);
+
+                    for (let i = 0; i < steps; i++) {
+                        const u = i / (steps - 1);
+                        const tSim = scanStart + u * totalDur;
+                        panCurve[i] = -0.85 + u * 1.70;
+                        const distNorm = Math.abs(tSim - peakTime) / (totalDur * 0.5);
+                        const proximity = Math.pow(Math.max(0, Math.min(1, 1 - distNorm)), 1.45);
+                        const edgeFade = Math.sin(u * Math.PI);
+
+                        airFreqCurve[i] = 850 + proximity * 4600;
+                        airGainCurve[i] = Math.max(0.0001, (0.06 + proximity * 0.52) * edgeFade);
+                        rotorFilterCurve[i] = 1200 + proximity * 6800;
+                        rotorGainCurve[i] = Math.max(0.0001, (0.05 + proximity * 0.25) * edgeFade);
+                    }
+
+                    if (typeof panner.pan !== 'undefined') {
+                        panner.pan.setValueCurveAtTime(panCurve, tStart, tEnd - tStart);
+                    }
+                    panner.connect(this.masterGain);
+
+                    const noiseSrc = this.ctx.createBufferSource();
+                    noiseSrc.buffer = this.noiseBuffer;
+                    noiseSrc.loop = true;
+
+                    const airBandpass = this.ctx.createBiquadFilter();
+                    airBandpass.type = 'bandpass';
+                    airBandpass.Q.setValueAtTime(3.0, tStart);
+                    airBandpass.frequency.setValueCurveAtTime(airFreqCurve, tStart, tEnd - tStart);
+
+                    const airGain = this.ctx.createGain();
+                    airGain.gain.setValueCurveAtTime(airGainCurve, tStart, tEnd - tStart);
+
+                    noiseSrc.connect(airBandpass);
+                    airBandpass.connect(airGain);
+                    airGain.connect(panner);
+                    noiseSrc.start(tStart);
+                    noiseSrc.stop(tEnd + 0.02);
+                    this.activeNodes.push(noiseSrc, airGain);
+
+                    const rotorDetunes = [0.988, 1.000, 1.012, 1.026];
+                    const rotorMix = this.ctx.createGain();
+                    const rotorFilter = this.ctx.createBiquadFilter();
+
+                    rotorFilter.type = 'lowpass';
+                    rotorFilter.Q.setValueAtTime(4.0, tStart);
+                    rotorFilter.frequency.setValueCurveAtTime(rotorFilterCurve, tStart, tEnd - tStart);
+                    rotorMix.gain.setValueCurveAtTime(rotorGainCurve, tStart, tEnd - tStart);
+
+                    rotorFilter.connect(rotorMix);
+                    rotorMix.connect(panner);
+
+                    rotorDetunes.forEach((ratio) => {
+                        const freqCurve = new Float32Array(steps);
+                        const bladeCurve = new Float32Array(steps);
+
+                        for (let i = 0; i < steps; i++) {
+                            const u = i / (steps - 1);
+                            const tSim = scanStart + u * totalDur;
+                            let pitchHz = 0;
+                            if (tSim <= peakTime) {
+                                const pIn = Math.max(0, Math.min(1, (tSim - scanStart) / (peakTime - scanStart)));
+                                pitchHz = 340 + Math.pow(pIn, 0.78) * 900;
+                            } else {
+                                const pOut = Math.max(0, Math.min(1, (tSim - peakTime) / (scanEnd - peakTime)));
+                                pitchHz = 1240 - Math.pow(pOut, 0.85) * 780;
+                            }
+                            const baseHz = pitchHz * ratio;
+                            freqCurve[i] = baseHz;
+                            bladeCurve[i] = baseHz * 3.0;
+                        }
+
+                        const fOsc = this.ctx.createOscillator();
+                        fOsc.type = 'sawtooth';
+                        fOsc.frequency.setValueCurveAtTime(freqCurve, tStart, tEnd - tStart);
+
+                        const hOsc = this.ctx.createOscillator();
+                        const hGain = this.ctx.createGain();
+                        hOsc.type = 'triangle';
+                        hOsc.frequency.setValueCurveAtTime(bladeCurve, tStart, tEnd - tStart);
+                        hGain.gain.setValueAtTime(0.45, tStart);
+
+                        fOsc.connect(rotorFilter);
+                        hOsc.connect(hGain);
+                        hGain.connect(rotorFilter);
+
+                        fOsc.start(tStart);
+                        hOsc.start(tStart);
+                        fOsc.stop(tEnd + 0.02);
+                        hOsc.stop(tEnd + 0.02);
+                        this.activeNodes.push(fOsc, hOsc);
+                    });
+
+                    this.activeNodes.push(rotorMix);
+                } catch (e) {}
+            }
+        }
+
+        const miniDroneAudio = new MiniDroneAcousticEngine();
+
+        const miniParticles = Array.from({ length: 34 }, (_, i) => ({
+            xNorm: ((i * 173) % 1000) / 1000,
+            y: (i * 293) % 1000,
+            r: 1.2 + (i % 3) * 0.9,
+            speedY: 12 + (i % 5) * 5,
+            phase: i * 0.7
+        }));
+
+        const miniCosmosStars = Array.from({ length: 58 }, (_, i) => ({
+            xNorm: ((i * 211) % 920 + 40) / 1000,
+            y: ((i * 137) % 340) + 600,
+            size: 0.9 + (i % 4) * 0.65,
+            twinkle: i * 1.1
+        }));
+
+        function mClamp01(v) { return Math.max(0, Math.min(1, v)); }
+        function mProgress(t, start, end) {
+            if (end <= start) return t >= end ? 1 : 0;
+            return mClamp01((t - start) / (end - start));
+        }
+        function mEaseOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
+        function mEaseOutBack(x) {
+            const c1 = 1.70158;
+            const c3 = c1 + 1;
+            return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+        }
+
+        const M_PAL = {
+            bgTop: '#050A18',
+            bgBottom: '#0B1736',
+            primary: '#38BDF8',
+            primaryGlow: '#0EA5E9',
+            secondary: '#FBBF24',
+            secondaryGlow: '#F59E0B',
+            textMain: '#F8FAFC',
+            textSub: '#94A3B8'
+        };
+
+        function drawMiniBackdrop(t) {
+            mCtx.save();
+            const bgGrad = mCtx.createLinearGradient(0, 0, 0, 1000);
+            bgGrad.addColorStop(0, M_PAL.bgTop);
+            bgGrad.addColorStop(1, M_PAL.bgBottom);
+            mCtx.fillStyle = bgGrad;
+            mCtx.fillRect(0, 0, 1000, 1000);
+
+            const hudAlpha = 0.15 * (1 - 0.55 * mEaseOutCubic(mProgress(t, 2.8, 4.2)));
+            mCtx.strokeStyle = `rgba(56, 189, 248, ${hudAlpha * 0.6})`;
+            mCtx.lineWidth = 1;
+            for (let x = 100; x <= 900; x += 100) {
+                mCtx.beginPath(); mCtx.moveTo(x, 40); mCtx.lineTo(x, 960); mCtx.stroke();
+            }
+            for (let y = 100; y <= 900; y += 100) {
+                mCtx.beginPath(); mCtx.moveTo(40, y); mCtx.lineTo(960, y); mCtx.stroke();
+            }
+
+            mCtx.strokeStyle = `rgba(56, 189, 248, ${hudAlpha * 1.1})`;
+            mCtx.lineWidth = 1.5;
+            [180, 290, 400].forEach((r, idx) => {
+                mCtx.beginPath();
+                mCtx.setLineDash(idx === 1 ? [8, 10] : []);
+                mCtx.arc(500, 480, r, 0, Math.PI * 2);
+                mCtx.stroke();
+            });
+            mCtx.setLineDash([]);
+
+            const sweepAngle = t * 2.1;
+            mCtx.save();
+            mCtx.translate(500, 480);
+            mCtx.rotate(sweepAngle);
+            mCtx.strokeStyle = `rgba(56, 189, 248, ${hudAlpha * 1.6})`;
+            mCtx.lineWidth = 2;
+            mCtx.beginPath(); mCtx.moveTo(0, 0); mCtx.lineTo(390, 0); mCtx.stroke();
+            mCtx.restore();
+
+            miniParticles.forEach(pt => {
+                const px = pt.xNorm * 1000;
+                const py = (pt.y - t * pt.speedY + 10000) % 1000;
+                const pulse = 0.4 + 0.6 * Math.sin(t * 3 + pt.phase);
+                mCtx.fillStyle = `rgba(125, 211, 252, ${0.35 * pulse})`;
+                mCtx.beginPath(); mCtx.arc(px, py, pt.r, 0, Math.PI * 2); mCtx.fill();
+            });
+            mCtx.restore();
+        }
+
+        function drawMiniShockwaves(t) {
+            [
+                { trigger: 1.15, duration: 0.75, cx: 500, cy: 490, maxR: 360, color: M_PAL.primary },
+                { trigger: 1.75, duration: 0.90, cx: 500, cy: 475, maxR: 480, color: M_PAL.secondary }
+            ].forEach(w => {
+                const p = mProgress(t, w.trigger, w.trigger + w.duration);
+                if (p > 0 && p < 1) {
+                    const ease = mEaseOutCubic(p);
+                    mCtx.save();
+                    mCtx.strokeStyle = w.color;
+                    mCtx.globalAlpha = (1 - ease) * 0.5;
+                    mCtx.lineWidth = 3.5 * (1 - ease);
+                    mCtx.beginPath();
+                    mCtx.arc(w.cx, w.cy, 30 + ease * w.maxR, 0, Math.PI * 2);
+                    mCtx.stroke();
+                    mCtx.restore();
+                }
+            });
+        }
+
+        function drawMiniCosmicBeamBack(t) {
+            const pFadeIn = mEaseOutCubic(mProgress(t, 5.45, 5.95));
+            if (pFadeIn <= 0) return;
+
+            mCtx.save();
+            const beamEnvelope = Math.sin(mProgress(t, 5.45, 9.55) * Math.PI);
+            const starAlphaBase = Math.max(beamEnvelope, 0.35 * pFadeIn);
+
+            miniCosmosStars.forEach((star, idx) => {
+                const sx = star.xNorm * 1000;
+                const twinkle = 0.35 + 0.65 * Math.sin(t * 7 + star.twinkle);
+                mCtx.fillStyle = `rgba(224, 242, 254, ${starAlphaBase * twinkle * 0.85})`;
+                mCtx.beginPath(); mCtx.arc(sx, star.y, star.size, 0, Math.PI * 2); mCtx.fill();
+
+                if (idx % 6 === 0) {
+                    mCtx.strokeStyle = `rgba(255, 255, 255, ${starAlphaBase * twinkle * 0.65})`;
+                    mCtx.lineWidth = 1;
+                    mCtx.beginPath();
+                    mCtx.moveTo(sx - 5, star.y); mCtx.lineTo(sx + 5, star.y);
+                    mCtx.moveTo(sx, star.y - 5); mCtx.lineTo(sx, star.y + 5);
+                    mCtx.stroke();
+                }
+            });
+
+            const pScan = mProgress(t, 5.65, 9.35);
+            if (pScan > 0 && pScan < 1) {
+                const masterAlpha = Math.sin(pScan * Math.PI);
+                const passes = 2.5;
+                const scanNorm = 0.5 - 0.5 * Math.cos(pScan * Math.PI * 2 * passes);
+                const sourceX = 165 + scanNorm * 670;
+                const sourceY = 788;
+                const baseAngle = Math.atan2(sourceY - 784, sourceX - 500);
+
+                [-0.52, -0.34, -0.18, -0.06, 0.06, 0.18, 0.34, 0.52].forEach((offset, idx) => {
+                    const a = baseAngle + offset + Math.sin(t * 5 + idx) * 0.03;
+                    const rayLen = 225 + (idx % 3) * 60;
+                    const spread = 0.075;
+                    const endX = sourceX + Math.cos(a) * rayLen;
+                    const endY = sourceY + Math.sin(a) * rayLen;
+
+                    const grad = mCtx.createLinearGradient(sourceX, sourceY, endX, endY);
+                    grad.addColorStop(0, `rgba(255, 255, 255, ${0.62 * masterAlpha})`);
+                    grad.addColorStop(0.45, `rgba(56, 189, 248, ${0.26 * masterAlpha})`);
+                    grad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+
+                    mCtx.fillStyle = grad;
+                    mCtx.beginPath();
+                    mCtx.moveTo(sourceX, sourceY);
+                    mCtx.lineTo(sourceX + Math.cos(a - spread) * rayLen, sourceY + Math.sin(a - spread) * rayLen);
+                    mCtx.lineTo(sourceX + Math.cos(a + spread) * rayLen, sourceY + Math.sin(a + spread) * rayLen);
+                    mCtx.closePath();
+                    mCtx.fill();
+                });
+
+                const coreRadius = 115;
+                const nebulaGrad = mCtx.createRadialGradient(sourceX, sourceY, 2, sourceX, sourceY, coreRadius);
+                nebulaGrad.addColorStop(0, `rgba(255, 255, 255, ${0.98 * masterAlpha})`);
+                nebulaGrad.addColorStop(0.22, `rgba(186, 230, 253, ${0.78 * masterAlpha})`);
+                nebulaGrad.addColorStop(0.55, `rgba(56, 189, 248, ${0.32 * masterAlpha})`);
+                nebulaGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+
+                mCtx.fillStyle = nebulaGrad;
+                mCtx.beginPath(); mCtx.arc(sourceX, sourceY, coreRadius, 0, Math.PI * 2); mCtx.fill();
+
+                const flareGrad = mCtx.createLinearGradient(sourceX - 180, sourceY, sourceX + 180, sourceY);
+                flareGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+                flareGrad.addColorStop(0.5, `rgba(224, 242, 254, ${0.78 * masterAlpha})`);
+                flareGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                mCtx.fillStyle = flareGrad;
+                mCtx.fillRect(sourceX - 180, sourceY - 3, 360, 6);
+            }
+            mCtx.restore();
+        }
+
+        function drawMiniHorizonAndWater(t) {
+            const pHor = mEaseOutCubic(mProgress(t, 0.0, 0.45));
+            if (pHor <= 0) return;
+
+            mCtx.save();
+            [
+                { y: 652, amp: 5.5, freq: 0.018, speed: 2.8, width: 325, alpha: 0.72, lw: 2.2 },
+                { y: 670, amp: 4.5, freq: 0.022, speed: -2.3, width: 250, alpha: 0.56, lw: 1.8 },
+                { y: 688, amp: 3.5, freq: 0.026, speed: 3.3, width: 175, alpha: 0.44, lw: 1.5 },
+                { y: 706, amp: 2.5, freq: 0.032, speed: -2.9, width: 105, alpha: 0.30, lw: 1.2 }
+            ].forEach(w => {
+                const halfW = w.width * pHor;
+                mCtx.save();
+                mCtx.shadowColor = '#0284C7';
+                mCtx.shadowBlur = 14;
+                mCtx.strokeStyle = `rgba(56, 189, 248, ${w.alpha * pHor})`;
+                mCtx.lineWidth = w.lw;
+                mCtx.lineCap = 'round';
+                mCtx.beginPath();
+                for (let x = 500 - halfW; x <= 500 + halfW; x += 6) {
+                    const distRatio = Math.abs(x - 500) / Math.max(1, halfW);
+                    const edgeFade = 1 - Math.pow(distRatio, 2);
+                    const wy = w.y + Math.sin(x * w.freq + t * w.speed) * w.amp * edgeFade;
+                    if (x === 500 - halfW) mCtx.moveTo(x, wy);
+                    else mCtx.lineTo(x, wy);
+                }
+                mCtx.stroke();
+                mCtx.restore();
+            });
+
+            mCtx.shadowColor = M_PAL.secondaryGlow;
+            mCtx.shadowBlur = 14;
+            mCtx.fillStyle = M_PAL.secondary;
+            mCtx.beginPath();
+            const span = 270 * pHor;
+            mCtx.moveTo(500 - span, 668);
+            mCtx.quadraticCurveTo(500, 622, 500 + span, 668);
+            mCtx.quadraticCurveTo(500, 634, 500 - span, 668);
+            mCtx.closePath();
+            mCtx.fill();
+
+            [
+                { y: 653, rx: 46, ry: 3.6, delay: 0.14 },
+                { y: 668, rx: 28, ry: 3.0, delay: 0.22 },
+                { y: 682, rx: 14, ry: 2.3, delay: 0.30 }
+            ].forEach(r => {
+                const pr = mEaseOutCubic(mProgress(t, r.delay, r.delay + 0.28));
+                if (pr > 0) {
+                    mCtx.fillStyle = M_PAL.secondary;
+                    mCtx.beginPath();
+                    mCtx.ellipse(500, r.y, r.rx * pr, r.ry * pr, 0, 0, Math.PI * 2);
+                    mCtx.fill();
+                }
+            });
+            mCtx.restore();
+        }
+
+        function drawMiniSunAndRays(t) {
+            const pSun = mEaseOutCubic(mProgress(t, 0.40, 0.88));
+            if (pSun <= 0) return;
+
+            mCtx.save();
+            const sunCx = 500, sunCy = 415, sunR = 124;
+            const twinkleEnv = (1 - mEaseOutCubic(mProgress(t, 4.7, 5.3))) * mEaseOutCubic(mProgress(t, 0.55, 0.95));
+
+            const auraPulse = 1 + 0.14 * Math.sin(t * 24) * twinkleEnv;
+            const sunGlow = mCtx.createRadialGradient(sunCx, sunCy, 15, sunCx, sunCy, 235 * auraPulse);
+            sunGlow.addColorStop(0, 'rgba(255, 251, 235, 0.45)');
+            sunGlow.addColorStop(0.35, 'rgba(251, 191, 36, 0.28)');
+            sunGlow.addColorStop(0.7, 'rgba(245, 158, 11, 0.08)');
+            sunGlow.addColorStop(1, 'rgba(245, 158, 11, 0)');
+            mCtx.fillStyle = sunGlow;
+            mCtx.globalAlpha = pSun;
+            mCtx.beginPath(); mCtx.arc(sunCx, sunCy, 235 * auraPulse, 0, Math.PI * 2); mCtx.fill();
+
+            mCtx.shadowColor = '#FEF08A';
+            mCtx.shadowBlur = 32;
+            mCtx.save();
+            mCtx.translate(0, (1 - pSun) * 32);
+            mCtx.globalAlpha = pSun;
+
+            mCtx.strokeStyle = '#FDE047';
+            mCtx.lineWidth = 5.2;
+            mCtx.lineCap = 'round';
+            mCtx.beginPath(); mCtx.arc(sunCx, sunCy, sunR, Math.PI * 1.04, Math.PI * 1.96); mCtx.stroke();
+
+            mCtx.strokeStyle = '#FFFBEB';
+            mCtx.lineWidth = 2.0;
+            mCtx.beginPath(); mCtx.arc(sunCx, sunCy, sunR, Math.PI * 1.06, Math.PI * 1.94); mCtx.stroke();
+            mCtx.restore();
+
+            [
+                { angle: -66, r1: 144, r2: 186, w: 2.4, delay: 0.68, freq: 31, phase: 0.4 },
+                { angle: -44, r1: 146, r2: 224, w: 3.2, delay: 0.73, freq: 39, phase: 2.1 },
+                { angle: -22, r1: 145, r2: 192, w: 2.6, delay: 0.78, freq: 33, phase: 4.3 },
+                { angle:   0, r1: 146, r2: 238, w: 3.6, delay: 0.83, freq: 43, phase: 1.2 },
+                { angle:  22, r1: 145, r2: 192, w: 2.6, delay: 0.78, freq: 35, phase: 5.0 },
+                { angle:  44, r1: 146, r2: 224, w: 3.2, delay: 0.73, freq: 41, phase: 3.1 },
+                { angle:  66, r1: 144, r2: 186, w: 2.4, delay: 0.68, freq: 29, phase: 1.8 }
+            ].forEach(ray => {
+                const pRay = mEaseOutCubic(mProgress(t, ray.delay, ray.delay + 0.32));
+                if (pRay > 0) {
+                    const rawOsc = Math.sin(t * ray.freq + ray.phase) * Math.cos(t * (ray.freq * 0.63) - ray.phase);
+                    const sparkle = 1 + twinkleEnv * rawOsc * 0.42;
+                    const lengthBoost = 1 + twinkleEnv * Math.max(0, rawOsc) * 0.14;
+                    const rad = (ray.angle - 90) * Math.PI / 180;
+                    const targetR2 = ray.r1 + (ray.r2 - ray.r1) * lengthBoost;
+                    const currR2 = ray.r1 + (targetR2 - ray.r1) * pRay;
+                    const midR = (ray.r1 + currR2) / 2;
+
+                    const x1 = sunCx + Math.cos(rad) * ray.r1;
+                    const y1 = sunCy + Math.sin(rad) * ray.r1;
+                    const x2 = sunCx + Math.cos(rad) * currR2;
+                    const y2 = sunCy + Math.sin(rad) * currR2;
+                    const perpX = -Math.sin(rad) * (ray.w * pRay);
+                    const perpY =  Math.cos(rad) * (ray.w * pRay);
+                    const mx = sunCx + Math.cos(rad) * midR;
+                    const my = sunCy + Math.sin(rad) * midR;
+
+                    mCtx.save();
+                    mCtx.globalAlpha = mClamp01(0.45 + 0.55 * sparkle);
+                    mCtx.shadowColor = rawOsc > 0.35 && twinkleEnv > 0.1 ? '#FFFFFF' : '#FACC15';
+                    mCtx.shadowBlur = 18 + twinkleEnv * Math.max(0, rawOsc) * 24;
+                    mCtx.fillStyle = (rawOsc > 0.45 && twinkleEnv > 0.15) ? '#FFFBEB' : '#FDE047';
+
+                    mCtx.beginPath();
+                    mCtx.moveTo(x1, y1);
+                    mCtx.quadraticCurveTo(mx + perpX, my + perpY, x2, y2);
+                    mCtx.quadraticCurveTo(mx - perpX, my - perpY, x1, y1);
+                    mCtx.closePath();
+                    mCtx.fill();
+                    mCtx.restore();
+                }
+            });
+            mCtx.restore();
+        }
+
+        function drawMiniDrone(t) {
+            const pDrone = mEaseOutCubic(mProgress(t, 1.00, 1.55));
+            if (pDrone <= 0) return;
+
+            mCtx.save();
+            const hoverSettle = mEaseOutCubic(mProgress(t, 2.2, 3.2));
+            const hoverY = Math.sin(t * 2.6) * 3.5 * hoverSettle;
+            const scaleIn = 0.80 + 0.20 * mEaseOutBack(pDrone);
+
+            mCtx.translate(500, 490 + hoverY);
+            mCtx.scale(scaleIn, scaleIn);
+            mCtx.translate(-500, -490);
+            mCtx.globalAlpha = pDrone;
+            mCtx.shadowColor = M_PAL.primaryGlow;
+            mCtx.shadowBlur = 22;
+
+            mCtx.strokeStyle = M_PAL.primary;
+            mCtx.lineWidth = 4.6;
+            mCtx.lineCap = 'round';
+            [
+                { x1: 484, y1: 472, x2: 416, y2: 422 },
+                { x1: 516, y1: 472, x2: 584, y2: 422 },
+                { x1: 484, y1: 508, x2: 418, y2: 562 },
+                { x1: 516, y1: 508, x2: 582, y2: 562 }
+            ].forEach(arm => {
+                mCtx.beginPath();
+                mCtx.moveTo(arm.x1, arm.y1);
+                mCtx.lineTo(arm.x1 + (arm.x2 - arm.x1) * pDrone, arm.y1 + (arm.y2 - arm.y1) * pDrone);
+                mCtx.stroke();
+            });
+
+            mCtx.fillStyle = '#071226';
+            mCtx.lineWidth = 4.2;
+            mCtx.lineJoin = 'round';
+            mCtx.beginPath();
+            mCtx.moveTo(500, 456); mCtx.lineTo(520, 470); mCtx.lineTo(516, 514);
+            mCtx.lineTo(500, 558); mCtx.lineTo(484, 514); mCtx.lineTo(480, 470);
+            mCtx.closePath(); mCtx.fill(); mCtx.stroke();
+
+            mCtx.lineWidth = 3.2;
+            mCtx.beginPath();
+            mCtx.moveTo(482, 488); mCtx.lineTo(500, 496); mCtx.lineTo(518, 488);
+            mCtx.moveTo(500, 496); mCtx.lineTo(500, 556);
+            mCtx.stroke();
+
+            const pRotors = mEaseOutCubic(mProgress(t, 1.25, 1.75));
+            const spinAngle = t * 15 * (1 - 0.85 * mEaseOutCubic(mProgress(t, 4.8, 5.8)));
+
+            [
+                { cx: 416, cy: 422, r: 34, dir: 1 },
+                { cx: 584, cy: 422, r: 34, dir: -1 },
+                { cx: 418, cy: 562, r: 34, dir: -1 },
+                { cx: 582, cy: 562, r: 34, dir: 1 }
+            ].forEach(rot => {
+                mCtx.fillStyle = M_PAL.primary;
+                mCtx.beginPath(); mCtx.arc(rot.cx, rot.cy, 8.5 * pDrone, 0, Math.PI * 2); mCtx.fill();
+
+                if (pRotors > 0) {
+                    mCtx.save();
+                    mCtx.translate(rot.cx, rot.cy);
+                    mCtx.rotate(spinAngle * rot.dir);
+                    mCtx.strokeStyle = M_PAL.secondary;
+                    mCtx.lineWidth = 4.0;
+                    mCtx.beginPath();
+                    mCtx.arc(0, 0, rot.r * pRotors, -Math.PI * 0.82, Math.PI * 0.72);
+                    mCtx.stroke();
+
+                    mCtx.strokeStyle = M_PAL.primary;
+                    mCtx.lineWidth = 2.2;
+                    mCtx.globalAlpha = 0.65 * pRotors;
+                    mCtx.beginPath();
+                    mCtx.moveTo(-rot.r * 0.72 * pRotors, 0);
+                    mCtx.lineTo(rot.r * 0.72 * pRotors, 0);
+                    mCtx.stroke();
+                    mCtx.restore();
+                }
+            });
+            mCtx.restore();
+        }
+
+        function drawMiniWings(t) {
+            const pWing = mEaseOutCubic(mProgress(t, 1.65, 2.40));
+            if (pWing <= 0) return;
+
+            mCtx.save();
+            const hoverSettle = mEaseOutCubic(mProgress(t, 2.4, 3.2));
+            const wingBreath = Math.sin(t * 2.6 - 0.4) * 0.015 * hoverSettle;
+
+            [-1, 1].forEach(side => {
+                mCtx.save();
+                mCtx.translate(500, 480); mCtx.scale(side, 1); mCtx.translate(-500, -480);
+                const openAngle = (1 - mEaseOutBack(pWing)) * -0.32 + wingBreath;
+                mCtx.translate(565, 485); mCtx.rotate(openAngle);
+                mCtx.scale(0.35 + 0.65 * pWing, 0.35 + 0.65 * pWing);
+                mCtx.translate(-565, -485);
+                mCtx.globalAlpha = pWing;
+                mCtx.shadowColor = M_PAL.primaryGlow;
+                mCtx.shadowBlur = 18;
+
+                mCtx.strokeStyle = M_PAL.primary;
+                mCtx.lineWidth = 4.8;
+                mCtx.lineCap = 'round';
+                mCtx.lineJoin = 'round';
+                mCtx.beginPath();
+                mCtx.moveTo(558, 514);
+                mCtx.bezierCurveTo(605, 510, 622, 435, 650, 412);
+                mCtx.bezierCurveTo(715, 392, 785, 368, 845, 322);
+                mCtx.bezierCurveTo(830, 368, 775, 394, 672, 422);
+                mCtx.stroke();
+
+                mCtx.save();
+                mCtx.shadowColor = M_PAL.secondaryGlow;
+                mCtx.shadowBlur = 16;
+                mCtx.strokeStyle = M_PAL.secondary;
+                mCtx.lineWidth = 4.4;
+                mCtx.beginPath();
+                mCtx.moveTo(608, 516);
+                mCtx.bezierCurveTo(632, 485, 646, 444, 676, 436);
+                mCtx.bezierCurveTo(732, 422, 778, 405, 814, 386);
+                mCtx.bezierCurveTo(790, 418, 745, 436, 682, 450);
+                mCtx.stroke();
+                mCtx.restore();
+
+                mCtx.strokeStyle = M_PAL.primary;
+                mCtx.lineWidth = 4.4;
+                mCtx.beginPath();
+                mCtx.moveTo(638, 482);
+                mCtx.bezierCurveTo(695, 472, 745, 458, 782, 442);
+                mCtx.bezierCurveTo(758, 472, 712, 486, 634, 496);
+                mCtx.stroke();
+
+                mCtx.beginPath();
+                mCtx.moveTo(622, 512);
+                mCtx.bezierCurveTo(665, 508, 702, 498, 730, 488);
+                mCtx.bezierCurveTo(708, 514, 672, 524, 616, 524);
+                mCtx.stroke();
+                mCtx.restore();
+            });
+            mCtx.restore();
+        }
+
+        function drawMiniTypography(t) {
+            const pText = mProgress(t, 2.35, 3.25);
+            if (pText <= 0) return;
+
+            mCtx.save();
+            const letters = [
+                { char: 'D', x: 196 }, { char: 'A', x: 282 }, { char: 'E', x: 368 }, { char: 'D', x: 454 },
+                { char: 'A', x: 540 }, { char: 'L', x: 626 }, { char: 'U', x: 712 }, { char: 'S', x: 798 }
+            ];
+            const baseY = 788, h = 44, w = 34;
+            const pScan = mProgress(t, 5.65, 9.35);
+            const scanEnv = Math.sin(pScan * Math.PI);
+            const scanNorm = 0.5 - 0.5 * Math.cos(pScan * Math.PI * 2 * 2.5);
+            const beamTargetX = 165 + scanNorm * 670;
+
+            letters.forEach((item, idx) => {
+                const lStart = 2.35 + idx * 0.08;
+                const pL = mEaseOutCubic(mProgress(t, lStart, lStart + 0.28));
+                if (pL <= 0) return;
+
+                let beamHit = 0;
+                if (pScan > 0 && pScan < 1) {
+                    beamHit = mClamp01(1 - Math.abs(item.x - beamTargetX) / 68) * scanEnv;
+                }
+
+                mCtx.save();
+                mCtx.globalAlpha = pL;
+                mCtx.translate(item.x, baseY + (1 - pL) * 14);
+                mCtx.scale(1 + beamHit * 0.14, 1 + beamHit * 0.14);
+
+                if (beamHit > 0.02) {
+                    mCtx.shadowColor = '#FFFFFF';
+                    mCtx.shadowBlur = 16 + beamHit * 34;
+                    mCtx.strokeStyle = '#FFFBEB';
+                    mCtx.lineWidth = 4.4 + beamHit * 2.4;
+                } else {
+                    mCtx.shadowColor = M_PAL.primaryGlow;
+                    mCtx.shadowBlur = 16;
+                    mCtx.strokeStyle = M_PAL.textMain;
+                    mCtx.lineWidth = 4.4;
+                }
+
+                mCtx.lineCap = 'round';
+                mCtx.lineJoin = 'round';
+                mCtx.beginPath();
+                switch (idx) {
+                    case 0: case 3:
+                        mCtx.moveTo(-w * 0.45, -h * 0.5); mCtx.lineTo(-w * 0.05, -h * 0.5);
+                        mCtx.arc(-w * 0.05, 0, h * 0.5, -Math.PI / 2, Math.PI / 2);
+                        mCtx.lineTo(-w * 0.45, h * 0.5); mCtx.closePath(); break;
+                    case 1: case 4:
+                        mCtx.moveTo(-w * 0.5, h * 0.5); mCtx.lineTo(0, -h * 0.5); mCtx.lineTo(w * 0.5, h * 0.5); break;
+                    case 2:
+                        mCtx.moveTo(-w * 0.48, -h * 0.5); mCtx.lineTo(w * 0.48, -h * 0.5);
+                        mCtx.moveTo(-w * 0.48, 0); mCtx.lineTo(w * 0.38, 0);
+                        mCtx.moveTo(-w * 0.48, h * 0.5); mCtx.lineTo(w * 0.48, h * 0.5); break;
+                    case 5:
+                        mCtx.moveTo(-w * 0.4, -h * 0.5); mCtx.lineTo(-w * 0.4, h * 0.5); mCtx.lineTo(w * 0.42, h * 0.5); break;
+                    case 6:
+                        mCtx.moveTo(-w * 0.45, -h * 0.5); mCtx.lineTo(-w * 0.45, h * 0.08);
+                        mCtx.arc(0, h * 0.08, w * 0.45, Math.PI, 0, true); mCtx.lineTo(w * 0.45, -h * 0.5); break;
+                    case 7:
+                        mCtx.moveTo(w * 0.42, -h * 0.34);
+                        mCtx.bezierCurveTo(w * 0.32, -h * 0.55, -w * 0.42, -h * 0.55, -w * 0.42, -h * 0.24);
+                        mCtx.bezierCurveTo(-w * 0.42, 0.02, w * 0.45, -0.02, w * 0.45, h * 0.24);
+                        mCtx.bezierCurveTo(w * 0.45, h * 0.55, -w * 0.34, h * 0.55, -w * 0.44, h * 0.34); break;
+                }
+                mCtx.stroke();
+                mCtx.restore();
+            });
+            mCtx.restore();
+        }
+
+        function drawMiniAcronymSubtitle(t) {
+            const pSub = mProgress(t, 3.20, 5.55);
+            if (pSub <= 0) return;
+
+            mCtx.save();
+            const pLine = mEaseOutCubic(mProgress(t, 3.20, 3.60));
+            if (pLine > 0) {
+                mCtx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+                mCtx.lineWidth = 2;
+                mCtx.beginPath();
+                mCtx.moveTo(500 - 180 * pLine, 845);
+                mCtx.lineTo(500 + 180 * pLine, 845);
+                mCtx.stroke();
+            }
+
+            const lines = [
+                {
+                    y: 892,
+                    groups: [
+                        {
+                            start: 3.30,
+                            parts: [
+                                { text: "D", bold: true }, { text: "éveloppement ", bold: false },
+                                { text: "d'", bold: false }, { text: "A", bold: true }, { text: "ctivités ", bold: false },
+                                { text: "É", bold: true }, { text: "ducatives ", bold: false }
+                            ]
+                        },
+                        {
+                            start: 3.85,
+                            parts: [
+                                { text: "sur les ", bold: false },
+                                { text: "D", bold: true }, { text: "rones,", bold: false }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    y: 932,
+                    groups: [
+                        {
+                            start: 4.35,
+                            parts: [
+                                { text: "l'", bold: false }, { text: "A", bold: true }, { text: "éronautique, ", bold: false },
+                                { text: "le ", bold: false }, { text: "L", bold: true }, { text: "oisir ", bold: false }
+                            ]
+                        },
+                        {
+                            start: 4.85,
+                            parts: [
+                                { text: "et l'", bold: false }, { text: "U", bold: true }, { text: "sage ", bold: false },
+                                { text: "S", bold: true }, { text: "cientifique", bold: false }
+                            ]
+                        }
+                    ]
+                }
+            ];
+
+            const FONT_REGULAR = "400 24px 'Inter', sans-serif";
+            const FONT_BOLD = "700 25px 'Inter', sans-serif";
+
+            lines.forEach(line => {
+                let totalLineWidth = 0;
+                const groupMetrics = line.groups.map(grp => {
+                    let gWidth = 0;
+                    const partsWithMetrics = grp.parts.map(part => {
+                        mCtx.font = part.bold ? FONT_BOLD : FONT_REGULAR;
+                        const pw = mCtx.measureText(part.text).width;
+                        gWidth += pw;
+                        return { ...part, width: pw };
+                    });
+                    totalLineWidth += gWidth;
+                    return { ...grp, parts: partsWithMetrics, width: gWidth };
+                });
+
+                let cursorX = 500 - totalLineWidth / 2;
+                const renderedGroups = [];
+
+                groupMetrics.forEach(grp => {
+                    const pGrp = mProgress(t, grp.start, grp.start + 0.72);
+                    if (pGrp > 0) {
+                        let scale = 1.0, liftY = 0;
+                        if (pGrp < 0.35) {
+                            const pIn = mEaseOutCubic(pGrp / 0.35);
+                            scale = 0.65 + 0.85 * pIn;
+                            liftY = -12 * pIn;
+                        } else if (pGrp < 0.55) {
+                            scale = 1.50;
+                            liftY = -12;
+                        } else {
+                            const pSettle = mEaseOutBack((pGrp - 0.55) / 0.45);
+                            scale = 1.50 - 0.50 * pSettle;
+                            liftY = -12 * (1 - pSettle);
+                        }
+                        renderedGroups.push({ grp, gx: cursorX, scale, liftY, alpha: mClamp01(pGrp * 3.5), pGrp });
+                    }
+                    cursorX += grp.width;
+                });
+
+                renderedGroups.sort((a, b) => a.scale - b.scale);
+
+                renderedGroups.forEach(item => {
+                    const { grp, gx, scale, liftY, alpha, pGrp } = item;
+                    const centerX = gx + grp.width / 2;
+                    const centerY = line.y - 8;
+
+                    mCtx.save();
+                    mCtx.globalAlpha = alpha;
+                    mCtx.translate(centerX, centerY + liftY);
+                    mCtx.scale(scale, scale);
+                    mCtx.translate(-centerX, -centerY);
+
+                    if (pGrp < 0.92) {
+                        mCtx.shadowColor = M_PAL.primaryGlow;
+                        mCtx.shadowBlur = (1 - pGrp) * 20;
+                    }
+
+                    let partX = gx;
+                    grp.parts.forEach(part => {
+                        mCtx.font = part.bold ? FONT_BOLD : FONT_REGULAR;
+                        mCtx.fillStyle = part.bold ? M_PAL.primary : M_PAL.textSub;
+                        mCtx.textBaseline = 'alphabetic';
+                        mCtx.fillText(part.text, partX, line.y);
+                        partX += part.width;
+                    });
+                    mCtx.restore();
+                });
+            });
+            mCtx.restore();
+        }
+
+        function renderOfficialLogoAnimation(timestamp) {
+            if (!miniStart) miniStart = timestamp;
+            const t = (timestamp - miniStart) / 1000;
+
+            mCtx.save();
+            drawMiniBackdrop(t);
+
+            const camProgress = mEaseOutCubic(mProgress(t, 0.0, 2.5));
+            const camZoom = 1.09 - 0.09 * camProgress;
+            mCtx.save();
+            mCtx.translate(500, 500);
+            mCtx.scale(camZoom, camZoom);
+            mCtx.translate(-500, -500);
+
+            drawMiniShockwaves(t);
+            drawMiniHorizonAndWater(t);
+            drawMiniSunAndRays(t);
+            drawMiniDrone(t);
+            drawMiniWings(t);
+            drawMiniCosmicBeamBack(t);
+            drawMiniTypography(t);
+            drawMiniAcronymSubtitle(t);
+
+            mCtx.restore();
+            mCtx.restore();
+
+            if (miniStepLabel) {
+                const labelText = miniStepLabel.querySelector('span:last-child');
+                if (labelText) {
+                    if (t < 0.45) labelText.textContent = "1/7 · Initialisation radar & horizon";
+                    else if (t < 1.00) labelText.textContent = "2/7 · Lever du soleil";
+                    else if (t < 1.65) labelText.textContent = "3/7 · Verrouillage du drone";
+                    else if (t < 2.35) labelText.textContent = "4/7 · Déploiement des ailes";
+                    else if (t < 3.20) labelText.textContent = "5/7 · Signature DAEDALUS";
+                    else if (t < 5.55) labelText.textContent = "6/7 · Révélation de l'acronyme";
+                    else if (t < MINI_TOTAL_DURATION) labelText.textContent = "7/7 · Faisceau stellaire sur DAEDALUS";
+                    else labelText.textContent = "Signature officielle DAEDALUS · Active";
+                }
+            }
+
+            miniAnimId = requestAnimationFrame(renderOfficialLogoAnimation);
+        }
+
+        function restartOfficialMiniAnimation(withSound = false) {
+            if (miniAnimId) cancelAnimationFrame(miniAnimId);
+            miniStart = null;
+            if (withSound) {
+                miniDroneAudio.scheduleSequence();
+            }
+            miniAnimId = requestAnimationFrame(renderOfficialLogoAnimation);
+        }
+
+        document.getElementById('btnMiniReplay').addEventListener('click', () => {
+            restartOfficialMiniAnimation(true);
+        });
+
+        window.addEventListener('load', () => {
+            restartOfficialMiniAnimation(false);
+        });
+    </script>
+</body>
+</html>
